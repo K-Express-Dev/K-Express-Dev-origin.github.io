@@ -4,13 +4,10 @@ import './Cart.css';
 import { FaTrash } from 'react-icons/fa';
 
 function Cart({ toggleCart }) {
-  // Initialize cart items from local storage or with a default item
-  const [cartItems, setCartItems] = useState(() => {
-    const savedCartItems = localStorage.getItem('cartItems');
-    return savedCartItems ? JSON.parse(savedCartItems) : [
-      { id: 1, name: 'Guruji Langar Dal', price: 58.45, servings: 6, quantity: 1, image: 'path_to_image.jpg' },
-    ];
-  });
+  const navigate = useNavigate();
+  const [cartItems, setCartItems] = useState([
+    { id: 1, name: 'Guruji Langar Dal', price: 58.45, servings: 6, quantity: 1, image: 'path_to_image.jpg' },
+  ]);
 
   const cartRef = useRef(null);
 
@@ -27,26 +24,16 @@ function Cart({ toggleCart }) {
     };
   }, [toggleCart]);
 
-  // Update local storage whenever cart items change
-  useEffect(() => {
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
-    console.log('Local storage updated:', JSON.stringify(cartItems));
-  }, [cartItems]);
-
   const incrementQuantity = (id) => {
-    const updatedCartItems = cartItems.map(item => 
+    setCartItems(cartItems.map(item => 
       item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-    );
-    setCartItems(updatedCartItems);
-    console.log('Cart items after increment:', JSON.stringify(updatedCartItems));
+    ));
   };
 
   const decrementQuantity = (id) => {
-    const updatedCartItems = cartItems.map(item => 
+    setCartItems(cartItems.map(item => 
       item.id === id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
-    );
-    setCartItems(updatedCartItems);
-    console.log('Cart items after decrement:', JSON.stringify(updatedCartItems));
+    ));
   };
 
   const removeItem = (id) => {
