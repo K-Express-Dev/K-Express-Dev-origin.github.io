@@ -1,61 +1,75 @@
+/* Navbar container styling */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    background-color: #ffdd00;
-    text-decoration: none;
+  display: flex; /* Use flexbox for layout */
+  justify-content: space-between; /* Space out items evenly */
+  align-items: center; /* Center items vertically */
+  padding: 1rem 2rem; /* Padding inside the navbar */
+  background-color: #ffdd00; /* Background color of the navbar */
+  text-decoration: none; /* Remove text decoration */
+}
 
-  }
-  .navbar-brand{
-    text-decoration: none;
-    color: #333;
-  }
+/* Navbar brand styling */
+.navbar-brand {
+  text-decoration: none; /* Remove text decoration */
+  color: #333; /* Text color */
+}
 
-  .navbar-left {
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-decoration: none;
-  }
-  
-  .navbar-right {
-    display: flex;
-    align-items: center;
-  }
-  
-  .navbar-item {
-    margin-right: 1rem;
-    text-decoration: none;
-    color: #333;
-  }
-  
-  .navbar-login {
-    margin-left: 0.5rem;
-    padding: 0.55rem 1.5rem;
-    background-color: #ffffff;
-    color: rgb(0, 0, 0);
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    text-decoration: none;
-  }
-  
-  .navbar-login:hover {
-    background-color: #000000;
-    color: #ffffff;
-  }
+/* Navbar left section styling */
+.navbar-left {
+  font-size: 1.5rem; /* Font size */
+  font-weight: bold; /* Bold text */
+  text-decoration: none; /* Remove text decoration */
+}
 
-  .navbar-signup {
-    margin-left: 0.5rem;
-    padding: 0.55rem 1.5rem;
-    background-color: #02346b;
-    color: white;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    text-decoration: none;
-  }
-  
-  .navbar-signup:hover {
-    background-color: #206ab9;
-  }
+/* Navbar right section styling */
+.navbar-right {
+  display: flex; /* Use flexbox for layout */
+  align-items: center; /* Center items vertically */
+}
+
+/* Navbar item styling */
+.navbar-item {
+  margin-right: 1rem; /* Margin to the right */
+  text-decoration: none; /* Remove text decoration */
+  color: #333; /* Text color */
+}
+
+/* Navbar login button styling */
+.navbar-login {
+  margin-left: 0.5rem; /* Margin to the left */
+  padding: 0.55rem 1.5rem; /* Padding inside the button */
+  background-color: #ffffff; /* Background color */
+  color: rgb(0, 0, 0); /* Text color */
+  border: none; /* Remove border */
+  border-radius: 25px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  text-decoration: none; /* Remove text decoration */
+}
+
+/* Navbar login button hover effect */
+.navbar-login:hover {
+  background-color: #000000; /* Background color on hover */
+  color: #ffffff; /* Text color on hover */
+}
+
+/* Navbar signup button styling */
+.navbar-signup {
+  margin-left: 0.5rem; /* Margin to the left */
+  padding: 0.55rem 1.5rem; /* Padding inside the button */
+  background-color: #02346b; /* Background color */
+  color: white; /* Text color */
+  border: none; /* Remove border */
+  border-radius: 25px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  text-decoration: none; /* Remove text decoration */
+}
+
+/* Navbar signup button hover effect */
+.navbar-signup:hover {
+  background-color: #206ab9; /* Background color on hover */
+}
+
+/* Placeholder button styling */
+button {
+  margin-left: 0.5rem; /* Margin to the left */
+}
