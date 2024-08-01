@@ -86,3 +86,9 @@ button {
   border-radius: 50%;
   transition: background-color 0.3s ease;
 }
+button {
+  margin-left: 0;
+}
+.navbar-cart:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
