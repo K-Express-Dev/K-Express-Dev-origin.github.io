@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Parable:wght@400;700&display=swap');
+
+/* src/components/AboutUs.css */
+.about-us-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+}
+
+.about-us {
+  display: flex;
+  flex-direction: row;
+  max-width: 1200px;
+  width: 100%;
+  gap: 2rem;
+}
+
+.about-content {
+  flex: 1;
+  text-align: left;
+}
+
+.about-content h1 {
+  font-size: 2.5rem;
+  color: #e63946;
+}
+
+.about-content p {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.about-content strong {
+  background-color: #e6d6fc;
+}
+
+.about-image {
+  flex: 1;
+  position: relative;
+  text-align: center;
+  padding-top: 3rem;
+}
+
+.about-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.about-caption {
+  position: absolute;
+  top: 3rem;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  background-color: rgba(162, 162, 162, 0); /* Semi-transparent background */
+  padding-bottom: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  width: calc(100% - 2rem); /* Maintain padding on the sides */
+}
+
+.about-caption h2 {
+  font-family: 'Parable', serif;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.about-caption p {
+  font-size: 1rem;
+  margin: 0.25rem 0;
+}
+
+.second-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  width: 100%;
+  background-color: #f9f9f9;
+  margin-top: 2rem; /* Add spacing between sections */
+}
+
+.section-content {
+  display: flex;
+  flex-direction: row;
+  max-width: 1200px;
+  width: 100%;
+  gap: 2rem;
+  align-items: center;
+}
+
+.section-image {
+  flex: 1;
+}
+
+.section-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.section-text {
+  flex: 1;
+  text-align: left;
+}
+
+.section-text h2 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.section-text p {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.section-button {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: #e63946;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-decoration: none; /* Ensure the button looks like a button */
+}
+
+.section-button:hover {
+  background-color: #d62828;
+}

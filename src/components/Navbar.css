@@ -1,0 +1,61 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #ffdd00;
+    text-decoration: none;
+
+  }
+  .navbar-brand{
+    text-decoration: none;
+    color: #333;
+  }
+
+  .navbar-left {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  .navbar-right {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar-item {
+    margin-right: 1rem;
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .navbar-login {
+    margin-left: 0.5rem;
+    padding: 0.55rem 1.5rem;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  .navbar-login:hover {
+    background-color: #000000;
+    color: #ffffff;
+  }
+
+  .navbar-signup {
+    margin-left: 0.5rem;
+    padding: 0.55rem 1.5rem;
+    background-color: #02346b;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  .navbar-signup:hover {
+    background-color: #206ab9;
+  }
