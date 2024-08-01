@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Cart.css';
 import { FaTrash } from 'react-icons/fa';
 
 function Cart({ toggleCart }) {
+  const navigate = useNavigate();
   const [cartItems, setCartItems] = useState([
     { id: 1, name: 'Guruji Langar Dal', price: 58.45, servings: 6, quantity: 1, image: 'path_to_image.jpg' },
   ]);
@@ -54,6 +56,11 @@ function Cart({ toggleCart }) {
     setCartItems([...cartItems, newItem]);
   };
 
+  const handleCheckout = () => {
+    toggleCart(); // Close the cart
+    navigate('/checkout', { state: { cartItems } }); // Navigate to checkout page with cart items
+  };
+
   return (
     <div className="cart" ref={cartRef}>
       <button className="close-cart" onClick={toggleCart}>&times;</button>
@@ -80,7 +87,7 @@ function Cart({ toggleCart }) {
           </li>
         ))}
       </ul>
-      <button className="checkout-button">Checkout</button>
+      <button className="checkout-button" onClick={handleCheckout}>Checkout</button>
       <button className="add-test-item-button" onClick={addTestItem}>Add Test Item</button>
     </div>
   );
