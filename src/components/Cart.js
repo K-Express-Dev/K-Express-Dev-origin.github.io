@@ -1,11 +1,26 @@
-import React, { useState } from 'react';
-import { FaTrash } from 'react-icons/fa';
+import React, { useState, useEffect, useRef } from 'react';
 import './Cart.css';
+import { FaTrash } from 'react-icons/fa';
 
 function Cart({ toggleCart }) {
   const [cartItems, setCartItems] = useState([
     { id: 1, name: 'Guruji Langar Dal', price: 58.45, servings: 6, quantity: 1, image: 'path_to_image.jpg' },
   ]);
+
+  const cartRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (cartRef.current && !cartRef.current.contains(event.target)) {
+        toggleCart();
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [toggleCart]);
 
   const incrementQuantity = (id) => {
     setCartItems(cartItems.map(item => 
@@ -23,24 +38,24 @@ function Cart({ toggleCart }) {
     setCartItems(cartItems.filter(item => item.id !== id));
   };
 
-  const addTestItem = () => {
-    const newItem = {
-      id: Date.now(),
-      name: `Test Dish ${cartItems.length + 1}`,
-      price: +(Math.random() * 50 + 10).toFixed(2),
-      servings: Math.floor(Math.random() * 5) + 1,
-      quantity: 1,
-      image: 'path_to_placeholder_image.jpg'
-    };
-    setCartItems([...cartItems, newItem]);
-  };
-
   const calculateTotalPrice = (item) => {
     return (item.price * item.quantity).toFixed(2);
   };
 
+  const addTestItem = () => {
+    const newItem = {
+      id: cartItems.length + 1,
+      name: 'Test Item',
+      price: 10.00,
+      servings: 1,
+      quantity: 1,
+      image: 'path_to_image.jpg'
+    };
+    setCartItems([...cartItems, newItem]);
+  };
+
   return (
-    <div className="cart">
+    <div className="cart" ref={cartRef}>
       <button className="close-cart" onClick={toggleCart}>&times;</button>
       <h2>Your Cart</h2>
       <ul>
