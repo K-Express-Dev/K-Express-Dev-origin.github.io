@@ -3,17 +3,29 @@ import './Cart.css';
 
 function Cart({ toggleCart }) {
   const [cartItems, setCartItems] = useState([
-    { id: 1, name: 'Item 1', price: 10.00 },
-    { id: 2, name: 'Item 2', price: 15.00 }
+    { id: 1, name: 'Item 1', price: 10.00, quantity: 1 },
+    { id: 2, name: 'Item 2', price: 15.00, quantity: 1 }
   ]);
 
   const addItem = () => {
-    const newItem = { id: Date.now(), name: `Item ${cartItems.length + 1}`, price: (Math.random() * 20).toFixed(2) };
+    const newItem = { id: Date.now(), name: `Item ${cartItems.length + 1}`, price: (Math.random() * 20).toFixed(2), quantity: 1 };
     setCartItems([...cartItems, newItem]);
   };
 
   const deleteItem = (id) => {
     setCartItems(cartItems.filter(item => item.id !== id));
+  };
+
+  const incrementQuantity = (id) => {
+    setCartItems(cartItems.map(item => 
+      item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+    ));
+  };
+
+  const decrementQuantity = (id) => {
+    setCartItems(cartItems.map(item => 
+      item.id === id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
+    ));
   };
 
   return (
@@ -25,6 +37,9 @@ function Cart({ toggleCart }) {
           <li key={item.id}>
             <span>{item.name}</span>
             <span>${item.price}</span>
+            <span>Quantity: {item.quantity}</span>
+            <button onClick={() => incrementQuantity(item.id)}>+</button>
+            <button onClick={() => decrementQuantity(item.id)}>-</button>
             <button onClick={() => deleteItem(item.id)}>Delete</button>
           </li>
         ))}
