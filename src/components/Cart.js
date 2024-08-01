@@ -1,23 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Cart.css';
 
 function Cart({ toggleCart }) {
+  const [cartItems, setCartItems] = useState([
+    { id: 1, name: 'Item 1', price: 10.00 },
+    { id: 2, name: 'Item 2', price: 15.00 }
+  ]);
+
+  const addItem = () => {
+    const newItem = { id: Date.now(), name: `Item ${cartItems.length + 1}`, price: (Math.random() * 20).toFixed(2) };
+    setCartItems([...cartItems, newItem]);
+  };
+
+  const deleteItem = (id) => {
+    setCartItems(cartItems.filter(item => item.id !== id));
+  };
+
   return (
     <div className="cart">
       <button className="close-cart" onClick={toggleCart}>X</button>
       <h2>Your Cart</h2>
       <ul>
-        {/* Cart items would be listed here */}
-        <li>
-          <span>Item 1</span>
-          <span>$10.00</span>
-        </li>
-        <li>
-          <span>Item 2</span>
-          <span>$15.00</span>
-        </li>
+        {cartItems.map(item => (
+          <li key={item.id}>
+            <span>{item.name}</span>
+            <span>${item.price}</span>
+            <button onClick={() => deleteItem(item.id)}>Delete</button>
+          </li>
+        ))}
       </ul>
       <button className="checkout-button">Checkout</button>
+      <button onClick={addItem}>Add Item</button>
     </div>
   );
 }
