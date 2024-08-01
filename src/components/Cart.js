@@ -3,18 +3,8 @@ import './Cart.css';
 
 function Cart({ toggleCart }) {
   const [cartItems, setCartItems] = useState([
-    { id: 1, name: 'Item 1', price: 10.00, quantity: 1 },
-    { id: 2, name: 'Item 2', price: 15.00, quantity: 1 }
+    { id: 1, name: 'Guruji Langar Dal', price: 58.45, servings: 6, quantity: 1, image: 'path_to_image.jpg' },
   ]);
-
-  const addItem = () => {
-    const newItem = { id: Date.now(), name: `Item ${cartItems.length + 1}`, price: (Math.random() * 20).toFixed(2), quantity: 1 };
-    setCartItems([...cartItems, newItem]);
-  };
-
-  const deleteItem = (id) => {
-    setCartItems(cartItems.filter(item => item.id !== id));
-  };
 
   const incrementQuantity = (id) => {
     setCartItems(cartItems.map(item => 
@@ -30,23 +20,26 @@ function Cart({ toggleCart }) {
 
   return (
     <div className="cart">
-      <button className="close-cart" onClick={toggleCart}>X</button>
+      <button className="close-cart" onClick={toggleCart}>&times;</button>
       <h2>Your Cart</h2>
       <ul>
         {cartItems.map(item => (
-          <li key={item.id}>
-            <span>{item.name}</span>
-            <span>Unit Price: ${item.price}</span>
-            <span>Total Price: ${(item.price * item.quantity).toFixed(2)}</span>
-            <button onClick={() => decrementQuantity(item.id)}>-</button>
-            <span>{item.quantity}</span>
-            <button onClick={() => incrementQuantity(item.id)}>+</button>
-            <button onClick={() => deleteItem(item.id)}>Delete</button>
+          <li key={item.id} className="cart-item">
+            <img src={item.image} alt={item.name} className="cart-item-image" />
+            <div className="cart-item-details">
+              <div className="cart-item-name">{item.name}</div>
+              <div className="cart-item-price">${item.price.toFixed(2)}</div>
+              <div className="cart-item-servings">{item.servings} servings</div>
+            </div>
+            <div className="cart-item-quantity">
+              <button className="quantity-button" onClick={() => decrementQuantity(item.id)}>-</button>
+              <span className="quantity-value">{item.quantity}</span>
+              <button className="quantity-button" onClick={() => incrementQuantity(item.id)}>+</button>
+            </div>
           </li>
         ))}
       </ul>
       <button className="checkout-button">Checkout</button>
-      <button onClick={addItem}>Add Item</button>
     </div>
   );
 }
