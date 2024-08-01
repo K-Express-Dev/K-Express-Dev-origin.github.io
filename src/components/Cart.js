@@ -37,10 +37,10 @@ function Cart({ toggleCart }) {
           <li key={item.id}>
             <span>{item.name}</span>
             <span>Unit Price: ${item.price}</span>
-            <span>Quantity: {item.quantity}</span>
             <span>Total Price: ${(item.price * item.quantity).toFixed(2)}</span>
-            <button onClick={() => incrementQuantity(item.id)}>+</button>
             <button onClick={() => decrementQuantity(item.id)}>-</button>
+            <span>{item.quantity}</span>
+            <button onClick={() => incrementQuantity(item.id)}>+</button>
             <button onClick={() => deleteItem(item.id)}>Delete</button>
           </li>
         ))}
