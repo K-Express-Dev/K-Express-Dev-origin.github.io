@@ -6,7 +6,7 @@ import './Navbar.css';
  * Navbar component that renders the navigation bar.
  * It includes links to different pages and a button.
  */
-function Navbar() {
+function Navbar({ toggleCart }) {
   return (
     <nav className="navbar">
       {/* Left section of the navbar */}
@@ -25,7 +25,7 @@ function Navbar() {
         {/* Link to the signup page */}
         <Link to="/signup" className="navbar-signup">Sign Up</Link>
         {/* Button for the cart */}
-        <button className="cart">Cart</button>
+        <button className="cart" onClick={toggleCart}>Cart</button>
       </div>
     </nav>
   );
