@@ -10,7 +10,7 @@ const SellerPage = () => {
     reviewCount: 313,
     mealsPrepared: 997,
     certifications: ["Food safety"],
-    description: "Hello Shef family !!! Good News for new shef customers only !! New customers get $15 off their next 3 orders, use my referral code shef-aahaar-986 for your next order. 🍊 Food that makes you happy 😊 My name is Parul and I am from Delhi India.",
+    description: "Good News for new K-express customers only !! New customers get $15 off their next 3 orders, use my referral code shef-aahaar-986 for your next order. 🍊 Food that makes you happy 😊 My name is Parul and I am from Delhi India.",
     cuisineTypes: ["Organic", "North Indian", "Punjabi", "Indian", "Delhi", "Vegetarian", "Comfort"],
   };
 
