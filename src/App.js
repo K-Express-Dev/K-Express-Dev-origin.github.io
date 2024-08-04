@@ -10,6 +10,7 @@ import Cart from './components/Cart';
 import Checkout from './components/Checkout';
 import SellerPage from './components/SellerPage'; // Import SellerPage component
 import './App.css';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 function App() {
   const [showCart, setShowCart] = useState(false);
@@ -53,6 +54,7 @@ function App() {
   const cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
   return (
+    <GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID">
     <Router>
       <div className="App">
         <Navbar toggleCart={toggleCart} cartItemCount={cartItemCount} />
@@ -75,6 +77,7 @@ function App() {
         )}
       </div>
     </Router>
+    </GoogleOAuthProvider>
   );
 }
 
