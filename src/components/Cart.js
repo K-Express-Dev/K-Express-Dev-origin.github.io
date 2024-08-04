@@ -13,6 +13,10 @@ function Cart({ toggleCart }) {
     ];
   });
 
+  const calculateTotalItems = (items) => {
+    return items.reduce((total, item) => total + item.quantity, 0);
+  };
+
   const cartRef = useRef(null);
 
   useEffect(() => {
@@ -102,6 +106,7 @@ function Cart({ toggleCart }) {
         ))}
       </ul>
       <button className="checkout-button" onClick={handleCheckout}>Checkout</button>
+      <div>Total items: {calculateTotalItems(cartItems)}</div>
       <button className="add-test-item-button" onClick={addTestItem}>Add Test Item</button>
     </div>
   );
