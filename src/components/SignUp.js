@@ -35,6 +35,9 @@ function SignUp() {
       });
       localStorage.setItem('token', response.data.token);
       // Redirect or update state to reflect the user is signed up and logged in
+
+      console.log('Google sign up successful:', decodedToken);
+
     } catch (error) {
       console.error('Google sign up error', error);
     }
