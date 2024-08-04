@@ -1,0 +1,149 @@
+.seller-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .seller-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .seller-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 2rem;
+  }
+  
+  .seller-info h1 {
+    margin: 0;
+    font-size: 2rem;
+  }
+  
+  .cuisine-types {
+    color: #666;
+    margin: 0.5rem 0;
+  }
+  
+  .seller-stats {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+  
+  .seller-stats span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .seller-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .action-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .action-button:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .seller-description {
+    margin-bottom: 2rem;
+  }
+  
+  .seller-menu {
+    margin-bottom: 2rem;
+  }
+  
+  .menu-filters, .meal-types {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .menu-filters button, .meal-types button {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .menu-filters button:hover, .meal-types button:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .popular-dishes h2 {
+    margin-bottom: 1rem;
+  }
+  
+  .dishes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2rem;
+  }
+  
+  .dish-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .dish-card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  .dish-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+  }
+  
+  .dish-card h3 {
+    margin: 0.5rem;
+  }
+  
+  .dish-card p {
+    margin: 0.5rem;
+    color: #666;
+  }
+  
+  .dish-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .dish-price {
+    font-weight: bold;
+  }
+  
+  .add-to-cart {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: #ffdd00;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-to-cart:hover {
+    background-color: #e6c700;
+  }

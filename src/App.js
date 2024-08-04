@@ -7,6 +7,7 @@ import Login from './components/Login';
 import AboutUs from './components/AboutUs';
 import Cart from './components/Cart';
 import Checkout from './components/Checkout';
+import SellerPage from './components/SellerPage';
 import './App.css';
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/seller/:id" element={<SellerPage />} />
         </Routes>
         {/* Conditionally render the Cart component */}
         {showCart && <Cart toggleCart={toggleCart} />}
