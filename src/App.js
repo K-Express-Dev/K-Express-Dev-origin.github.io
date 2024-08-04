@@ -8,6 +8,7 @@ import Login from './components/Login';
 import AboutUs from './components/AboutUs';
 import Cart from './components/Cart';
 import Checkout from './components/Checkout';
+import SellerPage from './components/SellerPage'; // Import SellerPage component
 import './App.css';
 
 function App() {
@@ -61,6 +62,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/checkout" element={<Checkout cartItems={cartItems} />} />
+          <Route path="/seller/:id" element={<SellerPage addToCart={addToCart} />} /> {/* Add this line */}
         </Routes>
         {showCart && (
           <Cart 
