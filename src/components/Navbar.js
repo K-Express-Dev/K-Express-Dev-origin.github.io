@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
 import './Navbar.css';
 
-function Navbar({ toggleCart }) {
+function Navbar({ toggleCart, cartItemCount }) {
   return (
     <nav className="navbar">
       <div className="navbar-left">
@@ -16,6 +16,7 @@ function Navbar({ toggleCart }) {
         <Link to="/signup" className="navbar-signup">Sign Up</Link>
         <button className="navbar-cart" onClick={toggleCart}>
           <FaShoppingCart />
+          {cartItemCount > 0 && <span className="cart-count">{cartItemCount}</span>}
         </button>
       </div>
     </nav>
