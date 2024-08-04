@@ -3,7 +3,20 @@
     margin: 0 auto;
     padding: 2rem;
   }
-  
+  .seller-boxes {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 2%;
+  }
+  .seller-link {
+    text-decoration: none;
+    color: inherit;
+    flex-basis: calc(33.333% - 2rem);
+    max-width: calc(33.333% - 2rem);
+  }
+
   .hero {
     position: relative; /* Ensure the hero section is positioned relative to its parent */
     background-image: url('./hero-image.png');
