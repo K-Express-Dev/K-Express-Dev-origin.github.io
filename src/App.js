@@ -54,7 +54,7 @@ function App() {
   const cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
   return (
-    <GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID">
+    <GoogleOAuthProvider clientId="526350682823-d30q8ds3j0pktkqvkdt2sqm78speucr0.apps.googleusercontent.com">
     <Router>
       <div className="App">
         <Navbar toggleCart={toggleCart} cartItemCount={cartItemCount} />
