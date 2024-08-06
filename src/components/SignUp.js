@@ -1,12 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from "jwt-decode";
+
 function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [isSignedUp, setIsSignedUp] = useState(false);
+
+  useEffect(() => {
+    const signedUpStatus = localStorage.getItem('isSignedUp');
+    console.log('Signed up status on load:', signedUpStatus);
+    if (signedUpStatus === 'true') {
+      setIsSignedUp(true);
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
