@@ -29,6 +29,22 @@ const Home = () => {
       locations: ['Irvine, CA'],
       days: ['Wednesday', 'Friday'],
     },
+    {
+      id: 4,
+      image: '/path/to/stew-soup-image2.jpg',
+      title: 'Stew & Soup Meals',
+      seller: 'First Last',
+      locations: ['Irvine, CA'],
+      days: ['Wednesday', 'Friday'],
+    },
+    {
+      id: 5,
+      image: '/path/to/stew-soup-image2.jpg',
+      title: 'Stew & Soup Meals',
+      seller: 'First Last',
+      locations: ['Irvine, CA'],
+      days: ['Wednesday', 'Friday'],
+    },
   ];
 
   const [selectedLocation, setSelectedLocation] = useState('');
