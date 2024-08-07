@@ -54,6 +54,17 @@ nav a, nav button {
   justify-content: center;
 }
 
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.35); /* Adjust the color and transparency as needed */
+  z-index: 1; /* Ensure the overlay is above the image but below the content */
+}
+
 .hero-content {
   text-align: center;
   color: white;
