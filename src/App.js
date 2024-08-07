@@ -8,7 +8,8 @@ import Login from './components/Login';
 import AboutUs from './components/AboutUs';
 import Cart from './components/Cart';
 import Checkout from './components/Checkout';
-import SellerPage from './components/SellerPage'; // Import SellerPage component
+import SellerPage from './components/SellerPage';
+import Footer from './components/Footer'; // Import the Footer component
 import './App.css';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
@@ -55,28 +56,31 @@ function App() {
 
   return (
     <GoogleOAuthProvider clientId="526350682823-d30q8ds3j0pktkqvkdt2sqm78speucr0.apps.googleusercontent.com">
-    <Router>
-      <div className="App">
-        <Navbar toggleCart={toggleCart} cartItemCount={cartItemCount} />
-        <Routes>
-          <Route path="/" element={<Home addToCart={addToCart} />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/about" element={<AboutUs />} />
-          <Route path="/checkout" element={<Checkout cartItems={cartItems} />} />
-          <Route path="/seller/:id" element={<SellerPage addToCart={addToCart} />} /> {/* Add this line */}
-        </Routes>
-        {showCart && (
-          <Cart 
-            cartItems={cartItems} 
-            toggleCart={toggleCart} 
-            removeFromCart={removeFromCart}
-            updateQuantity={updateQuantity}
-            addToCart={addToCart}
-          />
-        )}
-      </div>
-    </Router>
+      <Router>
+        <div className="App">
+          <Navbar toggleCart={toggleCart} cartItemCount={cartItemCount} />
+          <div className="content">
+            <Routes>
+              <Route path="/" element={<Home addToCart={addToCart} />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/about" element={<AboutUs />} />
+              <Route path="/checkout" element={<Checkout cartItems={cartItems} />} />
+              <Route path="/seller/:id" element={<SellerPage addToCart={addToCart} />} />
+            </Routes>
+            {showCart && (
+              <Cart 
+                cartItems={cartItems} 
+                toggleCart={toggleCart} 
+                removeFromCart={removeFromCart}
+                updateQuantity={updateQuantity}
+                addToCart={addToCart}
+              />
+            )}
+          </div>
+          <Footer />
+        </div>
+      </Router>
     </GoogleOAuthProvider>
   );
 }
