@@ -1,6 +1,6 @@
 .home {
   max-width: 100%;
-  margin: 0 auto;
+  margin-bottom: 80px;
 }
 
 header {
@@ -100,8 +100,9 @@ nav a, nav button {
   justify-content: center; /* Center the boxes horizontally */
   align-items: center; /* Center the boxes vertically */
   flex-wrap: wrap; /* Allow the boxes to wrap to the next line if needed */
-  gap: 2rem; /* Add space between the boxes */
+  gap: 20px; /* Add space between the boxes */
   padding: 2rem;
+  margin: auto 6vw;
 }
 
 .seller-link {
@@ -109,15 +110,17 @@ nav a, nav button {
   color: inherit;
   flex: 1;
   max-width: calc(33.333% - 1rem);
-  padding-left: auto;
+  padding: 2rem;
 }
 
 .seller-box {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
   flex-direction: column;
   align-items: center;
   padding: 1rem;
-  margin: auto;
+  margin:auto;
   width: auto;
 }
 
