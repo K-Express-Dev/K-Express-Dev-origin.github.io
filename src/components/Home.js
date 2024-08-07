@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SellerBox from './SellerBox';
+import './Home.css';
 
-const Home =  () => {
-
+const Home = () => {
   const sellers = [
     {
       id: 1,
@@ -44,16 +44,17 @@ const Home =  () => {
   return (
     <div className="home">
       <div className="hero">
-        <div className="transparent-box"></div>
-        <h1>Freshly Made, Local Korean Food</h1>
-        <div className="location-selector">
-          <i className="fas fa-map-marker-alt"></i>
-          <select value={selectedLocation} onChange={handleLocationChange}>
-            <option value="">Select a location</option>
-            <option value="Irvine, CA">Irvine, CA</option>
-            <option value="San Diego, CA">San Diego, CA</option>
-            <option value="Anaheim, CA">Anaheim, CA</option>
-          </select>
+        <div className="hero-content">
+          <h1>Freshly Made, Local Korean Food</h1>
+          <div className="location-selector">
+            <i className="fas fa-map-marker-alt"></i>
+            <select value={selectedLocation} onChange={handleLocationChange}>
+              <option value="">Select Location</option>
+              <option value="Irvine, CA">Irvine, CA</option>
+              <option value="San Diego, CA">San Diego, CA</option>
+              <option value="Anaheim, CA">Anaheim, CA</option>
+            </select>
+          </div>
         </div>
       </div>
       <div className="seller-boxes">
