@@ -8,22 +8,20 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-content">
         <div className="footer-section">
-          <h3>K-Express</h3>
-          <p>Your go-to marketplace for delicious Korean food.</p>
+          <h2>K-Express</h2>
         </div>
         <div className="footer-section">
-          <h3>Quick Links</h3>
+          <h3>Learn More</h3>
           <ul>
-            <li><Link to="/">Home</Link></li>
             <li><Link to="/about">About Us</Link></li>
-            <li><Link to="/signup">Sign Up</Link></li>
-            <li><Link to="/login">Login</Link></li>
+            <li><Link to="/faq">FAQ</Link></li>
           </ul>
         </div>
         <div className="footer-section">
           <h3>Contact Us</h3>
           <p>Email: support@k-express.com</p>
           <p>Phone: (123) 456-7890</p>
+          <a href="http://www.xavier.com/" target="_blank" rel="noopener noreferrer">Web Developer</a>
         </div>
         <div className="footer-section">
           <h3>Follow Us</h3>
@@ -36,6 +34,12 @@ const Footer = () => {
       </div>
       <div className="footer-bottom">
         <p>&copy; 2024 K-Express. All rights reserved.</p>
+        <div className="footer-links">
+          <Link to="/terms">Terms of Service</Link>
+          <Link to="/privacy">Privacy</Link>
+          <Link to="/delivery-locations">Delivery Locations</Link>
+          <Link to="/do-not-sell">Do Not Sell or Share My Personal Information</Link>
+        </div>
       </div>
     </footer>
   );
