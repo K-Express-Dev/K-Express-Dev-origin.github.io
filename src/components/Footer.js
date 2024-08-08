@@ -19,8 +19,10 @@ const Footer = () => {
         </div>
         <div className="footer-section">
           <h3>Contact Us</h3>
-          <p>Email: support@k-express.com</p>
+          <ul> 
+          <li><Link to="/form">Form</Link></li>
           <a href="http://www.xavier.com/" target="_blank" rel="noopener noreferrer">Web Developer</a>
+          </ul>
         </div>
         <div className="footer-section">
           <h3>Follow Us</h3>
