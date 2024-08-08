@@ -20,7 +20,6 @@ const Footer = () => {
         <div className="footer-section">
           <h3>Contact Us</h3>
           <p>Email: support@k-express.com</p>
-          <p>Phone: (123) 456-7890</p>
           <a href="http://www.xavier.com/" target="_blank" rel="noopener noreferrer">Web Developer</a>
         </div>
         <div className="footer-section">
