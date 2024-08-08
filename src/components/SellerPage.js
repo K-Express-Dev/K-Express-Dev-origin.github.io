@@ -17,11 +17,51 @@ const SellerPage = () => {
   };
 
   const popularDishes = [
-    { name: 'Guruji Langar Dal', image: '/path/to/dal.jpg', rating: 96, reviewCount: 26, servings: '1 serving', price: 12.99, description: 'This is a very tasty and healthy dish. It is made with organic ingredients.', },
-    { name: 'Phulka Roti', image: '/path/to/roti.jpg', rating: 96, reviewCount: 47, servings: '1-2 servings', price: 5.99, description: 'This is a very tasty and healthy dish. It is made with organic ingredients.' },
-    { name: 'Palak Paneer', image: '/path/to/palak.jpg', rating: 95, reviewCount: 40, servings: '1 serving', price: 11.99, description: 'This is a very tasty and healthy dish. It is made with organic ingredients.' },
-    { name: 'Shimla Mirch Aloo', image: '/path/to/aloo.jpg', rating: 95, reviewCount: 19, servings: '1 serving', price: 10.99, description: 'This is a very tasty and healthy dish. It is made with organic ingredients.' },
-    { name: 'Tiffin Combo', image: '/path/to/tiffin.jpg', rating: 100, reviewCount: 21, servings: '1 serving', price: 15.99, description: 'This is a very tasty and healthy dish. It is made with organic ingredients.' },
+    { 
+      name: 'Guruji Langar Dal', 
+      image: '/path/to/dal.jpg', 
+      rating: 96, 
+      reviewCount: 26, 
+      servings: '1 serving', 
+      price: 12.99, 
+      description: 'This is a very tasty and healthy dish. It is made with organic ingredients.'
+    },
+    { 
+      name: 'Phulka Roti', 
+      image: '/path/to/roti.jpg', 
+      rating: 96, 
+      reviewCount: 47, 
+      servings: '1-2 servings', 
+      price: 5.99, 
+      description: 'This is a very tasty and healthy dish. It is made with organic ingredients.'
+    },
+    { 
+      name: 'Palak Paneer', 
+      image: '/path/to/palak.jpg', 
+      rating: 95, 
+      reviewCount: 40, 
+      servings: '1 serving', 
+      price: 11.99, 
+      description: 'This is a very tasty and healthy dish. It is made with organic ingredients.'
+    },
+    { 
+      name: 'Shimla Mirch Aloo', 
+      image: '/path/to/aloo.jpg', 
+      rating: 95, 
+      reviewCount: 19, 
+      servings: '1 serving', 
+      price: 10.99, 
+      description: 'This is a very tasty and healthy dish. It is made with organic ingredients.'
+    },
+    { 
+      name: 'Tiffin Combo', 
+      image: '/path/to/tiffin.jpg', 
+      rating: 100, 
+      reviewCount: 21, 
+      servings: '1 serving', 
+      price: 15.99, 
+      description: 'This is a very tasty and healthy dish. It is made with organic ingredients.'
+    },
   ];
 
   const handleDishClick = (dish) => {
