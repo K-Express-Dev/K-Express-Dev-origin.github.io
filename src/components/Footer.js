@@ -37,7 +37,6 @@ const Footer = () => {
           <Link to="/terms">Terms of Service</Link>
           <Link to="/privacy">Privacy</Link>
           <Link to="/delivery-locations">Delivery Locations</Link>
-          <Link to="/do-not-sell">Do Not Sell or Share My Personal Information</Link>
         </div>
       </div>
     </footer>
