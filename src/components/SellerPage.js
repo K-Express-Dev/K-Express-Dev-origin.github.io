@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaStar, FaCheck, FaHeart, FaComment, FaShare } from 'react-icons/fa';
 import './SellerPage.css';
 
 const SellerPage = () => {
+  const [selectedDish, setSelectedDish] = useState(null);
+
   const seller = {
     name: "ahaar tiffins",
     image: "/path/to/seller-image.jpg",
@@ -21,6 +23,14 @@ const SellerPage = () => {
     { name: 'Shimla Mirch Aloo', image: '/path/to/aloo.jpg', rating: 95, reviewCount: 19, servings: '1 serving', price: 10.99 },
     { name: 'Tiffin Combo', image: '/path/to/tiffin.jpg', rating: 100, reviewCount: 21, servings: '1 serving', price: 15.99 },
   ];
+
+  const handleDishClick = (dish) => {
+    setSelectedDish(dish);
+  };
+
+  const handleClosePopup = () => {
+    setSelectedDish(null);
+  };
 
   return (
     <div className="seller-page">
@@ -53,7 +63,7 @@ const SellerPage = () => {
         </div>
         <div className="dishes-grid">
           {popularDishes.map((dish, index) => (
-            <div key={index} className="dish-card">
+            <div key={index} className="dish-card" onClick={() => handleDishClick(dish)}>
               <img src={dish.image} alt={dish.name} />
               <h3>{dish.name}</h3>
               <p className="dish-rating"><FaStar /> {dish.rating}% ({dish.reviewCount})</p>
@@ -64,6 +74,19 @@ const SellerPage = () => {
           ))}
         </div>
       </div>
+      {selectedDish && (
+        <div className="popup">
+          <div className="popup-content">
+            <span className="close" onClick={handleClosePopup}>&times;</span>
+            <img src={selectedDish.image} alt={selectedDish.name} className="popup-image" />
+            <h2>{selectedDish.name}</h2>
+            <p>Rating: {selectedDish.rating}%</p>
+            <p>Reviews: {selectedDish.reviewCount}</p>
+            <p>Servings: {selectedDish.servings}</p>
+            <p>Price: ${selectedDish.price.toFixed(2)}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
