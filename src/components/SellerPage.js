@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaStar, FaCheck, FaHeart, FaComment, FaShare } from 'react-icons/fa';
 import './SellerPage.css';
 
@@ -72,6 +72,19 @@ const SellerPage = () => {
     setSelectedDish(null);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (selectedDish && !event.target.closest('.popup-content')) {
+        handleClosePopup();
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [selectedDish]);
+
   return (
     <div className="seller-page">
       <div className="seller-header">
@@ -116,6 +129,7 @@ const SellerPage = () => {
       </div>
       {selectedDish && (
         <div className="popup">
+          <div className="popup-overlay" onClick={handleClosePopup}></div>
           <div className="popup-content">
             <span className="close" onClick={handleClosePopup}>&times;</span>
             <img src={selectedDish.image} alt={selectedDish.name} className="popup-image" />
