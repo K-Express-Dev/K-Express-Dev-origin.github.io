@@ -42,24 +42,15 @@ const SellerPage = () => {
         </div>
       </div>
       <p className="seller-description">{seller.description}</p>
-      
-      <div className="seller-menu">
-        <div className="menu-filters">
-          <button>Protein</button>
-          <button>Dietary</button>
-          <button>More filters</button>
-        </div>
-        <h2>Browse By Meal Type</h2>
+    
+      <div className="popular-dishes">
+        <h2>Popular dishes</h2>
         <div className="meal-types">
           <button>Popular</button>
           <button>Eco Packaging</button>
           <button>Mains</button>
           <button>Sides</button>
         </div>
-      </div>
-
-      <div className="popular-dishes">
-        <h2>Popular dishes</h2>
         <div className="dishes-grid">
           {popularDishes.map((dish, index) => (
             <div key={index} className="dish-card">
