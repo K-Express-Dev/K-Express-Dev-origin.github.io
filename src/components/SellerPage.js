@@ -17,11 +17,51 @@ const SellerPage = () => {
   };
 
   const popularDishes = [
-    { name: 'Guruji Langar Dal', image: '/path/to/dal.jpg', rating: 96, reviewCount: 26, servings: '1 serving', price: 12.99 },
-    { name: 'Phulka Roti', image: '/path/to/roti.jpg', rating: 96, reviewCount: 47, servings: '1-2 servings', price: 5.99 },
-    { name: 'Palak Paneer', image: '/path/to/palak.jpg', rating: 95, reviewCount: 40, servings: '1 serving', price: 11.99 },
-    { name: 'Shimla Mirch Aloo', image: '/path/to/aloo.jpg', rating: 95, reviewCount: 19, servings: '1 serving', price: 10.99 },
-    { name: 'Tiffin Combo', image: '/path/to/tiffin.jpg', rating: 100, reviewCount: 21, servings: '1 serving', price: 15.99 },
+    { 
+      name: 'Guruji Langar Dal', 
+      image: '/path/to/dal.jpg', 
+      rating: 96, 
+      reviewCount: 26, 
+      servings: '1 serving', 
+      price: 12.99, 
+      description: 'This is a very tasty and healthy dish. It is made with organic ingredients.'
+    },
+    { 
+      name: 'Phulka Roti', 
+      image: '/path/to/roti.jpg', 
+      rating: 96, 
+      reviewCount: 47, 
+      servings: '1-2 servings', 
+      price: 5.99, 
+      description: 'This is a very tasty and healthy dish. It is made with organic ingredients.'
+    },
+    { 
+      name: 'Palak Paneer', 
+      image: '/path/to/palak.jpg', 
+      rating: 95, 
+      reviewCount: 40, 
+      servings: '1 serving', 
+      price: 11.99, 
+      description: 'This is a very tasty and healthy dish. It is made with organic ingredients.'
+    },
+    { 
+      name: 'Shimla Mirch Aloo', 
+      image: '/path/to/aloo.jpg', 
+      rating: 95, 
+      reviewCount: 19, 
+      servings: '1 serving', 
+      price: 10.99, 
+      description: 'This is a very tasty and healthy dish. It is made with organic ingredients.'
+    },
+    { 
+      name: 'Tiffin Combo', 
+      image: '/path/to/tiffin.jpg', 
+      rating: 100, 
+      reviewCount: 21, 
+      servings: '1 serving', 
+      price: 15.99, 
+      description: 'This is a very tasty and healthy dish. It is made with organic ingredients.'
+    },
   ];
 
   const handleDishClick = (dish) => {
@@ -80,8 +120,7 @@ const SellerPage = () => {
             <span className="close" onClick={handleClosePopup}>&times;</span>
             <img src={selectedDish.image} alt={selectedDish.name} className="popup-image" />
             <h2>{selectedDish.name}</h2>
-            <p>Rating: {selectedDish.rating}%</p>
-            <p>Reviews: {selectedDish.reviewCount}</p>
+            <p>{selectedDish.description}</p>
             <p>Servings: {selectedDish.servings}</p>
             <p>Price: ${selectedDish.price.toFixed(2)}</p>
             <button className="add-to-cart-popup">Add to cart</button>
