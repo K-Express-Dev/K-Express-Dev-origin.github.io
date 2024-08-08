@@ -84,6 +84,7 @@ const SellerPage = () => {
             <p>Reviews: {selectedDish.reviewCount}</p>
             <p>Servings: {selectedDish.servings}</p>
             <p>Price: ${selectedDish.price.toFixed(2)}</p>
+            <button className="add-to-cart-popup">Add to cart</button>
           </div>
         </div>
       )}
