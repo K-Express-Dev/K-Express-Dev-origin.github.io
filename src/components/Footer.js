@@ -8,7 +8,9 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-content">
         <div className="footer-section">
-          <h2>K-Express</h2>
+          <h2>            
+          <Link to="/home">K-Express</Link>
+          </h2>
         </div>
         <div className="footer-section">
           <h3>Learn More</h3>
@@ -20,7 +22,7 @@ const Footer = () => {
         <div className="footer-section">
           <h3>Contact Us</h3>
           <ul> 
-          <li><Link to="/form">Form</Link></li>
+          <li><Link to="/form">Contact Form</Link></li>
           <a href="http://www.xavier.com/" target="_blank" rel="noopener noreferrer">Web Developer</a>
           </ul>
         </div>

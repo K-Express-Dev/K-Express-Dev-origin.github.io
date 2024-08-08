@@ -1,7 +1,7 @@
 /* components/Footer.css */
 .footer {
   background-color: #f8f8f8;
-  padding: 2rem 0 1rem;
+  padding: 2rem 0 3rem; /* Increased bottom padding */
   color: #333;
 }
 
@@ -18,10 +18,20 @@
   margin: 1rem;
   min-width: 200px;
 }
+
 .footer-section h2 {
   margin-bottom: 1rem;
   font-size: 2rem;
-  color: #02346b
+  color: #02346b;
+}
+
+.footer-section h2 a {
+  text-decoration: none;
+  color: #02346b;
+}
+
+.footer-section h2 a:hover {
+  text-decoration: none;
 }
 
 .footer-section h3 {
@@ -79,10 +89,4 @@
   display: flex;
   justify-content: center;
   margin-top: 1rem;
-}
-
-.footer {
-  background-color: #f8f8f8;
-  padding-bottom: 3rem; /* Increased bottom padding */
-  color: #333;
 }
