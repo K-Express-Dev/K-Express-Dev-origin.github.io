@@ -9,7 +9,7 @@ const Footer = () => {
       <div className="footer-content">
         <div className="footer-section">
           <h2>            
-          <Link to="/home">K-Express</Link>
+          <Link to="/ ">K-Express</Link>
           </h2>
         </div>
         <div className="footer-section">
