@@ -38,6 +38,7 @@ function App() {
       }
       return [...prevItems, { ...item, quantity: 1 }];
     });
+    setShowCart(true); // Open the cart when an item is added
   };
 
   const removeFromCart = (id) => {
@@ -50,6 +51,7 @@ function App() {
         item.id === id ? { ...item, quantity: quantity } : item
       )
     );
+    setShowCart(true); // Open the cart when quantity is updated
   };
 
   const cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
