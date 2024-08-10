@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { FaStar, FaCheck, FaHeart, FaComment, FaShare } from 'react-icons/fa';
 import './SellerPage.css';
+import Cart from './Cart'; // Make sure to import the Cart component
 
 const SellerPage = () => {
   const [selectedDish, setSelectedDish] = useState(null);
+  const [cartItems, setCartItems] = useState([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   const seller = {
     name: "ahaar tiffins",
@@ -18,6 +21,7 @@ const SellerPage = () => {
 
   const popularDishes = [
     { 
+      id: 1,
       name: 'Guruji Langar Dal', 
       image: '/path/to/dal.jpg', 
       rating: 96, 
@@ -27,40 +31,44 @@ const SellerPage = () => {
       description: 'This is a very tasty and healthy dish. It is made with organic ingredients.'
     },
     { 
+      id: 2,
       name: 'Phulka Roti', 
       image: '/path/to/roti.jpg', 
       rating: 96, 
       reviewCount: 47, 
       servings: '1-2 servings', 
       price: 5.99, 
-      description: 'This is a very tasty and healthy dish. It is made with organic ingredients.'
+      description: 'Soft and fluffy whole wheat flatbread, perfect for scooping up curries and dals.'
     },
     { 
+      id: 3,
       name: 'Palak Paneer', 
       image: '/path/to/palak.jpg', 
       rating: 95, 
       reviewCount: 40, 
       servings: '1 serving', 
       price: 11.99, 
-      description: 'This is a very tasty and healthy dish. It is made with organic ingredients.'
+      description: 'Creamy spinach curry with cubes of soft paneer cheese, a vegetarian favorite.'
     },
     { 
+      id: 4,
       name: 'Shimla Mirch Aloo', 
       image: '/path/to/aloo.jpg', 
       rating: 95, 
       reviewCount: 19, 
       servings: '1 serving', 
       price: 10.99, 
-      description: 'This is a very tasty and healthy dish. It is made with organic ingredients.'
+      description: 'A flavorful combination of bell peppers and potatoes, seasoned with aromatic spices.'
     },
     { 
+      id: 5,
       name: 'Tiffin Combo', 
       image: '/path/to/tiffin.jpg', 
       rating: 100, 
       reviewCount: 21, 
       servings: '1 serving', 
       price: 15.99, 
-      description: 'This is a very tasty and healthy dish. It is made with organic ingredients.'
+      description: 'A complete meal with a variety of dishes, perfect for a satisfying lunch or dinner.'
     },
   ];
 
@@ -70,6 +78,37 @@ const SellerPage = () => {
 
   const handleClosePopup = () => {
     setSelectedDish(null);
+  };
+
+  const addToCart = (dish) => {
+    const existingItem = cartItems.find(item => item.id === dish.id);
+    if (existingItem) {
+      setCartItems(cartItems.map(item =>
+        item.id === dish.id ? { ...item, quantity: item.quantity + 1 } : item
+      ));
+    } else {
+      setCartItems([...cartItems, { ...dish, quantity: 1 }]);
+    }
+    setIsCartOpen(true);
+    handleClosePopup();
+  };
+
+  const toggleCart = () => {
+    setIsCartOpen(!isCartOpen);
+  };
+
+  const removeFromCart = (id) => {
+    setCartItems(cartItems.filter(item => item.id !== id));
+  };
+
+  const updateQuantity = (id, newQuantity) => {
+    if (newQuantity === 0) {
+      removeFromCart(id);
+    } else {
+      setCartItems(cartItems.map(item =>
+        item.id === id ? { ...item, quantity: newQuantity } : item
+      ));
+    }
   };
 
   useEffect(() => {
@@ -115,14 +154,14 @@ const SellerPage = () => {
           <button>Sides</button>
         </div>
         <div className="dishes-grid">
-          {popularDishes.map((dish, index) => (
-            <div key={index} className="dish-card" onClick={() => handleDishClick(dish)}>
+          {popularDishes.map((dish) => (
+            <div key={dish.id} className="dish-card" onClick={() => handleDishClick(dish)}>
               <img src={dish.image} alt={dish.name} />
               <h3>{dish.name}</h3>
               <p className="dish-rating"><FaStar /> {dish.rating}% ({dish.reviewCount})</p>
               <p>{dish.servings}</p>
               <p className="dish-price">${dish.price.toFixed(2)}</p>
-              <button className="add-to-cart">Add to cart</button>
+              <button className="add-to-cart" onClick={(e) => { e.stopPropagation(); addToCart(dish); }}>Add to cart</button>
             </div>
           ))}
         </div>
@@ -137,9 +176,17 @@ const SellerPage = () => {
             <p>{selectedDish.description}</p>
             <p>Servings: {selectedDish.servings}</p>
             <p>Price: ${selectedDish.price.toFixed(2)}</p>
-            <button className="add-to-cart-popup">Add to cart</button>
+            <button className="add-to-cart-popup" onClick={() => addToCart(selectedDish)}>Add to cart</button>
           </div>
         </div>
+      )}
+      {isCartOpen && (
+        <Cart
+          cartItems={cartItems}
+          toggleCart={toggleCart}
+          removeFromCart={removeFromCart}
+          updateQuantity={updateQuantity}
+        />
       )}
     </div>
   );
