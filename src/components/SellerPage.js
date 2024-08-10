@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { FaStar, FaCheck, FaHeart, FaComment, FaShare } from 'react-icons/fa';
 import './SellerPage.css';
-import Cart from './Cart'; // Make sure to import the Cart component
 
-const SellerPage = () => {
+const SellerPage = ({ addToCart }) => {
   const [selectedDish, setSelectedDish] = useState(null);
-  const [cartItems, setCartItems] = useState([]);
-  const [isCartOpen, setIsCartOpen] = useState(false);
 
   const seller = {
     name: "ahaar tiffins",
@@ -80,35 +77,9 @@ const SellerPage = () => {
     setSelectedDish(null);
   };
 
-  const addToCart = (dish) => {
-    const existingItem = cartItems.find(item => item.id === dish.id);
-    if (existingItem) {
-      setCartItems(cartItems.map(item =>
-        item.id === dish.id ? { ...item, quantity: item.quantity + 1 } : item
-      ));
-    } else {
-      setCartItems([...cartItems, { ...dish, quantity: 1 }]);
-    }
-    setIsCartOpen(true);
+  const handleAddToCart = (dish) => {
+    addToCart(dish);
     handleClosePopup();
-  };
-
-  const toggleCart = () => {
-    setIsCartOpen(!isCartOpen);
-  };
-
-  const removeFromCart = (id) => {
-    setCartItems(cartItems.filter(item => item.id !== id));
-  };
-
-  const updateQuantity = (id, newQuantity) => {
-    if (newQuantity === 0) {
-      removeFromCart(id);
-    } else {
-      setCartItems(cartItems.map(item =>
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      ));
-    }
   };
 
   useEffect(() => {
@@ -161,7 +132,7 @@ const SellerPage = () => {
               <p className="dish-rating"><FaStar /> {dish.rating}% ({dish.reviewCount})</p>
               <p>{dish.servings}</p>
               <p className="dish-price">${dish.price.toFixed(2)}</p>
-              <button className="add-to-cart" onClick={(e) => { e.stopPropagation(); addToCart(dish); }}>Add to cart</button>
+              <button className="add-to-cart" onClick={(e) => { e.stopPropagation(); handleAddToCart(dish); }}>Add to cart</button>
             </div>
           ))}
         </div>
@@ -176,17 +147,9 @@ const SellerPage = () => {
             <p>{selectedDish.description}</p>
             <p>Servings: {selectedDish.servings}</p>
             <p>Price: ${selectedDish.price.toFixed(2)}</p>
-            <button className="add-to-cart-popup" onClick={() => addToCart(selectedDish)}>Add to cart</button>
+            <button className="add-to-cart-popup" onClick={() => handleAddToCart(selectedDish)}>Add to cart</button>
           </div>
         </div>
-      )}
-      {isCartOpen && (
-        <Cart
-          cartItems={cartItems}
-          toggleCart={toggleCart}
-          removeFromCart={removeFromCart}
-          updateQuantity={updateQuantity}
-        />
       )}
     </div>
   );
