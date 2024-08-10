@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaStar, FaCheck, FaHeart, FaComment, FaShare } from 'react-icons/fa';
 import './SellerPage.css';
 
-const SellerPage = () => {
+const SellerPage = ({ addToCart }) => {
+  const [selectedDish, setSelectedDish] = useState(null);
+
   const seller = {
     name: "ahaar tiffins",
     image: "/path/to/seller-image.jpg",
@@ -15,12 +17,83 @@ const SellerPage = () => {
   };
 
   const popularDishes = [
-    { name: 'Guruji Langar Dal', image: '/path/to/dal.jpg', rating: 96, reviewCount: 26, servings: '1 serving', price: 12.99 },
-    { name: 'Phulka Roti', image: '/path/to/roti.jpg', rating: 96, reviewCount: 47, servings: '1-2 servings', price: 5.99 },
-    { name: 'Palak Paneer', image: '/path/to/palak.jpg', rating: 95, reviewCount: 40, servings: '1 serving', price: 11.99 },
-    { name: 'Shimla Mirch Aloo', image: '/path/to/aloo.jpg', rating: 95, reviewCount: 19, servings: '1 serving', price: 10.99 },
-    { name: 'Tiffin Combo', image: '/path/to/tiffin.jpg', rating: 100, reviewCount: 21, servings: '1 serving', price: 15.99 },
+    { 
+      id: 1,
+      name: 'Guruji Langar Dal', 
+      image: '/path/to/dal.jpg', 
+      rating: 96, 
+      reviewCount: 26, 
+      servings: '1 serving', 
+      price: 12.99, 
+      description: 'This is a very tasty and healthy dish. It is made with organic ingredients.'
+    },
+    { 
+      id: 2,
+      name: 'Phulka Roti', 
+      image: '/path/to/roti.jpg', 
+      rating: 96, 
+      reviewCount: 47, 
+      servings: '1-2 servings', 
+      price: 5.99, 
+      description: 'Soft and fluffy whole wheat flatbread, perfect for scooping up curries and dals.'
+    },
+    { 
+      id: 3,
+      name: 'Palak Paneer', 
+      image: '/path/to/palak.jpg', 
+      rating: 95, 
+      reviewCount: 40, 
+      servings: '1 serving', 
+      price: 11.99, 
+      description: 'Creamy spinach curry with cubes of soft paneer cheese, a vegetarian favorite.'
+    },
+    { 
+      id: 4,
+      name: 'Shimla Mirch Aloo', 
+      image: '/path/to/aloo.jpg', 
+      rating: 95, 
+      reviewCount: 19, 
+      servings: '1 serving', 
+      price: 10.99, 
+      description: 'A flavorful combination of bell peppers and potatoes, seasoned with aromatic spices.'
+    },
+    { 
+      id: 5,
+      name: 'Tiffin Combo', 
+      image: '/path/to/tiffin.jpg', 
+      rating: 100, 
+      reviewCount: 21, 
+      servings: '1 serving', 
+      price: 15.99, 
+      description: 'A complete meal with a variety of dishes, perfect for a satisfying lunch or dinner.'
+    },
   ];
+
+  const handleDishClick = (dish) => {
+    setSelectedDish(dish);
+  };
+
+  const handleClosePopup = () => {
+    setSelectedDish(null);
+  };
+
+  const handleAddToCart = (dish) => {
+    addToCart(dish);
+    handleClosePopup();
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (selectedDish && !event.target.closest('.popup-content')) {
+        handleClosePopup();
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [selectedDish]);
 
   return (
     <div className="seller-page">
@@ -42,37 +115,42 @@ const SellerPage = () => {
         </div>
       </div>
       <p className="seller-description">{seller.description}</p>
-      
-      <div className="seller-menu">
-        <div className="menu-filters">
-          <button>Protein</button>
-          <button>Dietary</button>
-          <button>More filters</button>
-        </div>
-        <h2>Browse By Meal Type</h2>
+    
+      <div className="popular-dishes">
+        <h2>Popular dishes</h2>
         <div className="meal-types">
           <button>Popular</button>
           <button>Eco Packaging</button>
           <button>Mains</button>
           <button>Sides</button>
         </div>
-      </div>
-
-      <div className="popular-dishes">
-        <h2>Popular dishes</h2>
         <div className="dishes-grid">
-          {popularDishes.map((dish, index) => (
-            <div key={index} className="dish-card">
+          {popularDishes.map((dish) => (
+            <div key={dish.id} className="dish-card" onClick={() => handleDishClick(dish)}>
               <img src={dish.image} alt={dish.name} />
               <h3>{dish.name}</h3>
               <p className="dish-rating"><FaStar /> {dish.rating}% ({dish.reviewCount})</p>
               <p>{dish.servings}</p>
               <p className="dish-price">${dish.price.toFixed(2)}</p>
-              <button className="add-to-cart">Add to cart</button>
+              <button className="add-to-cart" onClick={(e) => { e.stopPropagation(); handleAddToCart(dish); }}>Add to cart</button>
             </div>
           ))}
         </div>
       </div>
+      {selectedDish && (
+        <div className="popup">
+          <div className="popup-overlay" onClick={handleClosePopup}></div>
+          <div className="popup-content">
+            <span className="close" onClick={handleClosePopup}>&times;</span>
+            <img src={selectedDish.image} alt={selectedDish.name} className="popup-image" />
+            <h2>{selectedDish.name}</h2>
+            <p>{selectedDish.description}</p>
+            <p>Servings: {selectedDish.servings}</p>
+            <p>Price: ${selectedDish.price.toFixed(2)}</p>
+            <button className="add-to-cart-popup" onClick={() => handleAddToCart(selectedDish)}>Add to cart</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

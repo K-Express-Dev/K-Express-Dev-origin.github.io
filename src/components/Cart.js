@@ -1,10 +1,9 @@
-// Cart.js
 import React, { useRef, useEffect } from 'react';
 import './Cart.css';
 import { useNavigate } from 'react-router-dom';
 import { FaTrash } from 'react-icons/fa';
 
-function Cart({ cartItems, toggleCart, removeFromCart, updateQuantity, addToCart }) {
+function Cart({ cartItems, toggleCart, removeFromCart, updateQuantity }) {
   const navigate = useNavigate();
   const cartRef = useRef(null);
 
@@ -30,18 +29,6 @@ function Cart({ cartItems, toggleCart, removeFromCart, updateQuantity, addToCart
     navigate('/checkout', { state: { cartItems } });
   };
 
-  const addTestItem = () => {
-    const testItem = {
-      id: Date.now(), // Use timestamp as a unique id
-      name: 'Test Item',
-      price: 9.99,
-      servings: 1,
-      quantity: 1,
-      image: 'https://via.placeholder.com/60' // Placeholder image
-    };
-    addToCart(testItem);
-  };
-
   return (
     <div className="cart" ref={cartRef}>
       <button className="close-cart" onClick={toggleCart}>&times;</button>
@@ -53,7 +40,7 @@ function Cart({ cartItems, toggleCart, removeFromCart, updateQuantity, addToCart
             <div className="cart-item-details">
               <div className="cart-item-name">{item.name}</div>
               <div className="cart-item-price">${calculateTotalPrice(item)}</div>
-              <div className="cart-item-servings">{item.servings} servings</div>
+              <div className="cart-item-servings">{item.servings}</div>
             </div>
             <div className="cart-item-actions">
               <button className="remove-item" onClick={() => removeFromCart(item.id)}>
@@ -70,7 +57,6 @@ function Cart({ cartItems, toggleCart, removeFromCart, updateQuantity, addToCart
       </ul>
       <button className="checkout-button" onClick={handleCheckout}>Checkout</button>
       <div>Total items: {cartItems.reduce((total, item) => total + item.quantity, 0)}</div>
-      <button className="add-test-item-button" onClick={addTestItem}>Add Test Item</button>
     </div>
   );
 }
