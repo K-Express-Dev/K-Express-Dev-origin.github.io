@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, setDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { auth, db } from './firebase'; // Adjust the import path as needed
 import { useNavigate } from 'react-router-dom';
 import './SignUp.css';
@@ -27,6 +27,12 @@ function SignUp() {
     }
   };
 
+  const checkEmailExists = async (email) => {
+    const q = query(collection(db, 'users'), where('email', '==', email));
+    const querySnapshot = await getDocs(q);
+    return !querySnapshot.empty;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -35,10 +41,16 @@ function SignUp() {
       return;
     }
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      await saveUserToFirestore(userCredential.user);
-      setAccountCreated(true);
-      setTimeout(() => navigate('/'), 3000); // Delay navigation by 3 seconds
+      const emailExists = await checkEmailExists(email);
+      if (emailExists) {
+        setError('An account with this email already exists');
+        return;
+      } else {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        await saveUserToFirestore(userCredential.user);
+        setAccountCreated(true);
+        setTimeout(() => navigate('/'), 3000); // Delay navigation by 3 seconds
+      }
     } catch (error) {
       setError(error.message);
     }
@@ -49,9 +61,15 @@ function SignUp() {
     const provider = new GoogleAuthProvider();
     try {
       const result = await signInWithPopup(auth, provider);
-      await saveUserToFirestore(result.user);
-      setAccountCreated(true);
-      setTimeout(() => navigate('/'), 3000); // Delay navigation by 3 seconds
+      const emailExists = await checkEmailExists(result.user.email);
+      if (emailExists) {
+        setError('An account with this email already exists');
+        return;
+      } else {
+        await saveUserToFirestore(result.user);
+        setAccountCreated(true);
+        setTimeout(() => navigate('/'), 3000); // Delay navigation by 3 seconds
+      }
     } catch (error) {
       setError(error.message);
     }
