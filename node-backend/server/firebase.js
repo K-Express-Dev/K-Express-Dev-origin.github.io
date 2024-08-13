@@ -1,11 +1,10 @@
-// server/firebase.js
-const admin = require('firebase-admin');
-const serviceAccount = require('./path/to/serviceAccountKey.json');
+// Backend Firebase
+
+var admin = require("firebase-admin");
+
+var serviceAccount = require(".serviceAccountKey.json");
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://real-k-express-default-rtdb.firebaseio.com"
 });
-
-const db = admin.firestore();
-
-module.exports = { admin, db };
