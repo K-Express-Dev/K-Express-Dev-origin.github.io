@@ -3,12 +3,14 @@ import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } f
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from './firebase'; // Adjust the import path as needed
 import { useNavigate } from 'react-router-dom';
+import './SignUp.css';
 
 function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [error, setError] = useState('');
+  const [accountCreated, setAccountCreated] = useState(false);
   const navigate = useNavigate();
 
   const saveUserToFirestore = async (user) => {
@@ -35,7 +37,8 @@ function SignUp() {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       await saveUserToFirestore(userCredential.user);
-      navigate('/dashboard'); // Redirect to dashboard after successful signup
+      setAccountCreated(true);
+      setTimeout(() => navigate('/'), 3000); // Delay navigation by 3 seconds
     } catch (error) {
       setError(error.message);
     }
@@ -47,7 +50,8 @@ function SignUp() {
     try {
       const result = await signInWithPopup(auth, provider);
       await saveUserToFirestore(result.user);
-      navigate('/dashboard'); // Redirect to dashboard after successful signup
+      setAccountCreated(true);
+      setTimeout(() => navigate('/'), 3000); // Delay navigation by 3 seconds
     } catch (error) {
       setError(error.message);
     }
@@ -55,32 +59,45 @@ function SignUp() {
 
   return (
     <div>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-          required
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-          required
-        />
-        <input
-          type="password"
-          value={passwordConfirmation}
-          onChange={(e) => setPasswordConfirmation(e.target.value)}
-          placeholder="Confirm Password"
-          required
-        />
-        <button type="submit">Sign Up</button>
-      </form>
-      <button onClick={handleGoogleSignUp}>Sign Up with Google</button>
+      {accountCreated ? (
+        <div>
+          <h1>Account successfully created!</h1>
+          <h2>You can now log into this account.</h2>
+          <h3>
+            <span className="spinner" />
+            Redirecting to home page...
+          </h3>
+        </div>
+      ) : (
+        <>
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+          <form onSubmit={handleSubmit}>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email"
+              required
+            />
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              required
+            />
+            <input
+              type="password"
+              value={passwordConfirmation}
+              onChange={(e) => setPasswordConfirmation(e.target.value)}
+              placeholder="Confirm Password"
+              required
+            />
+            <button type="submit">Sign Up</button>
+          </form>
+          <button onClick={handleGoogleSignUp}>Sign Up with Google</button>
+        </>
+      )}
     </div>
   );
 }
