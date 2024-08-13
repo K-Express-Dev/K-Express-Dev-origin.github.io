@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { GoogleLogin } from '@react-oauth/google';
-import { jwtDecode } from "jwt-decode";
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { auth } from './firebase';
+
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -9,24 +9,21 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3001/login', {
-        email,
-        password
-      });
-      localStorage.setItem('token', response.data.token);
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      localStorage.setItem('token', await user.getIdToken());
       // Redirect or update state to reflect the user is logged in
     } catch (error) {
-      console.error('Login error', error.response.data);
+      console.error('Login error', error.message);
     }
   };
 
-  const handleGoogleSuccess = async (credentialResponse) => {
+  const handleGoogleLogin = async () => {
+    const provider = new GoogleAuthProvider();
     try {
-      const decodedToken = jwtDecode(credentialResponse.credential);
-      const response = await axios.post('http://localhost:3001/api/auth/google', {
-        token: credentialResponse.credential
-      });
-      localStorage.setItem('token', response.data.token);
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      localStorage.setItem('token', await user.getIdToken());
       // Redirect or update state to reflect the user is logged in
     } catch (error) {
       console.error('Google login error', error);
@@ -53,39 +50,7 @@ function Login() {
         <button type="submit">Login</button>
       </form>
       <div style={{ marginTop: '20px' }}>
-        <GoogleLogin
-          onSuccess={handleGoogleSuccess}
-          onError={() => console.log('Google Login Failed')}
-          render={({ onClick, disabled }) => (
-            <button
-              onClick={onClick}
-              disabled={disabled}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: '10px 15px',
-                border: '1px solid #dadce0',
-                borderRadius: '4px',
-                backgroundColor: 'white',
-                color: '#3c4043',
-                fontSize: '14px',
-                fontWeight: '500',
-                fontFamily: 'Roboto, sans-serif',
-                cursor: 'pointer',
-                width: '100%',
-                maxWidth: '240px',
-              }}
-            >
-              <img
-                src="https://developers.google.com/identity/images/g-logo.png"
-                alt="Google logo"
-                style={{ marginRight: '10px', width: '18px', height: '18px' }}
-              />
-              Continue with Google
-            </button>
-          )}
-        />
+        <button onClick={handleGoogleLogin}>Continue with Google</button>
       </div>
     </div>
   );
