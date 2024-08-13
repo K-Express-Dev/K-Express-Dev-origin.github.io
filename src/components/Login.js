@@ -1,3 +1,10 @@
+/**
+ * Login Component
+ * 
+ * This component handles user login functionality, including email/password login
+ * and Google login using Firebase Authentication. It also manages user session state.
+ * 
+ */
 import React, { useState, useEffect } from 'react';
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
@@ -22,14 +29,21 @@ function Login() {
     checkUserLoggedIn();
   }, []);
 
+  /**
+   * Checks if an email exists in the Firestore database.
+   * @param {string} email - The email to check.
+   * @returns {boolean} - True if the email exists, false otherwise.
+   */
   const checkEmailExists = async (email) => {
     const docRef = doc(db, 'users', email);
     const docSnap = await getDoc(docRef);
     return docSnap.exists();
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  /**
+   * Handles the login process using email and password.
+   */
+  const handleLogin = async () => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
@@ -38,14 +52,13 @@ function Login() {
     } catch (error) {
       console.error('Login error', error.message);
       const emailExists = await checkEmailExists(email);
-      if (emailExists) {
-        console.log('Email exists in the database');
-      } else {
-        console.log('Email does not exist in the database');
-      }
+      console.log(emailExists ? 'Email exists in the database' : 'Email does not exist in the database');
     }
   };
 
+  /**
+   * Handles the login process using Google authentication.
+   */
   const handleGoogleLogin = async () => {
     const provider = new GoogleAuthProvider();
     try {
@@ -58,10 +71,22 @@ function Login() {
     }
   };
 
+  /**
+   * Logs the user out by removing the token from localStorage.
+   */
   const handleLogout = () => {
     localStorage.removeItem('token');
     setIsLoggedIn(false);
     navigate('/login'); // Redirect to login page or any other page
+  };
+
+  /**
+   * Handles the form submission for login.
+   * @param {Event} e - The form submission event.
+   */
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleLogin();
   };
 
   if (isLoggedIn) {
