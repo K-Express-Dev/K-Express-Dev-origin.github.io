@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, sendEmailVerification } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from './firebase';
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +11,7 @@ function SignUp() {
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [verificationSent, setVerificationSent] = useState(false);
   const navigate = useNavigate();
 
   const saveUserToFirestore = async (user) => {
@@ -18,6 +19,7 @@ function SignUp() {
       await setDoc(doc(db, "users", user.uid), {
         email: user.email,
         createdAt: new Date(),
+        emailVerified: user.emailVerified
       });
     } catch (error) {
       console.error("Error saving user data to Firestore:", error);
@@ -36,7 +38,8 @@ function SignUp() {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       await saveUserToFirestore(userCredential.user);
-      navigate('/');
+      await sendEmailVerification(userCredential.user);
+      setVerificationSent(true);
     } catch (error) {
       setError(error.message);
     } finally {
@@ -57,6 +60,18 @@ function SignUp() {
       setLoading(false);
     }
   };
+
+  if (verificationSent) {
+    return (
+      <div className="auth-container">
+        <div className="auth-card">
+          <h2 className="auth-title">Verify Your Email</h2>
+          <p>A verification email has been sent to {email}. Please check your inbox and click on the verification link to complete your registration.</p>
+          <p>Once verified, you can <a href="/login">log in</a> to your account.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="auth-container">
