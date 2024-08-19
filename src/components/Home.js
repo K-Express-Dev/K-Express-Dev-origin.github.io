@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SellerBox from './SellerBox';
 import './Home.css';
+import spicyOctopusImage from './images/spicy_octopus.jpeg';
+
 
 const Home = () => {
   const sellers = [
     {
       id: 1,
-      image: '/path/to/korean-bbq-image.jpg',
+      image: spicyOctopusImage,
       title: 'Korean BBQ Meals',
       seller: 'First Last',
       locations: ['Irvine, CA', 'San Diego, CA'],

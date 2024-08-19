@@ -48,7 +48,7 @@ nav a, nav button {
   background-image: url('./hero-image.png');
   background-size: cover;
   background-position: center;
-  height: 400px;
+  height: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
