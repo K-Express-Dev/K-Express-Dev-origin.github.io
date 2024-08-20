@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import axios from 'axios';
+import { auth } from './firebase'; // Import Firebase Authentication
 import './Checkout.css';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
@@ -12,7 +13,19 @@ function CheckoutForm({ cartItems }) {
   const elements = useElements();
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState(false);
+  const [user, setUser] = useState(null); // State to hold user information
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchUserData = () => {
+      const currentUser = auth.currentUser;
+      if (currentUser) {
+        setUser(currentUser);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -25,6 +38,7 @@ function CheckoutForm({ cartItems }) {
     try {
       const response = await axios.post('http://localhost:3001/create-payment-intent', {
         amount: calculateTotal(cartItems),
+        userId: user ? user.uid : null, // Include user ID if available
       });
 
       const { clientSecret } = response.data;
@@ -33,7 +47,8 @@ function CheckoutForm({ cartItems }) {
         payment_method: {
           card: elements.getElement(CardElement),
           billing_details: {
-            name: 'Jenny Rosen', // You might want to collect this from the user
+            name: user ? user.displayName : 'Jenny Rosen', // Use user's name if available
+            email: user ? user.email : '', // Use user's email if available
           },
         },
       });
@@ -59,27 +74,17 @@ function CheckoutForm({ cartItems }) {
   return (
     <form onSubmit={handleSubmit}>
       <div className="contact-information">
-      <h3>Contact Information</h3>
-      <div className="contact-input">
-        <input type="email" placeholder="Email" required />
-        <input type="text" placeholder="Address" required />
-        <input type="tel" placeholder="Phone Number" required />
-      </div>
+        <h3>Contact Information</h3>
+        <div className="contact-input">
+          <input type="email" placeholder="Email" required defaultValue={user ? user.email : ''} />
+          <input type="text" placeholder="Address" required />
+          <input type="tel" placeholder="Phone Number" required />
+        </div>
       </div>
       <div className="card-information">
         <h3>Card Information</h3>
         <div className="card-input">
-          <input type="text" placeholder="1234 1234 1234 1234" />
-          <div className="card-icons">
-            <span className="visa">VISA</span>
-            <span className="mastercard">Mastercard</span>
-            <span className="amex">AMEX</span>
-            <span className="diners">Diners</span>
-          </div>
-        </div>
-        <div className="card-details">
-          <input type="text" placeholder="MM / YY" />
-          <input type="text" placeholder="CVC" />
+          <CardElement />
         </div>
         <div className="billing-info">
           <input type="checkbox" id="same-as-shipping" />
