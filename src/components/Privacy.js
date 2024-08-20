@@ -6,7 +6,7 @@ const Privacy = () => {
     <div className="privacy-container">
       <h1>Privacy Policy</h1>
       
-      <p>Date of Last Revision: [Current Date]</p>
+      <p>Date of Last Revision: Aug 20, 2024</p>
       
       <p>Welcome to the website (the "Site") of K-Express ("K-Express," "we," "us," or "our"). K-Express provides an online marketplace in which Sellers (defined below) can list, offer, sell and deliver Korean food items and meal orders to the general public, and customers can browse and purchase Meals (collectively, including the Site and any related mobile applications, the "Service").</p>
       
