@@ -86,7 +86,7 @@
 .navbar-signup {
   margin-left: 0.5rem; /* Margin to the left */
   padding: 0.55rem 1.5rem; /* Padding inside the button */
-  background-color: #02346b; /* Background color */
+  background-color: #ef4646; /* Background color */
   color: white; /* Text color */
   border: none; /* Remove border */
   border-radius: 25px; /* Rounded corners */
@@ -96,7 +96,7 @@
 
 /* Navbar signup button hover effect */
 .navbar-signup:hover {
-  background-color: #206ab9; /* Background color on hover */
+  background-color: #f11a1a; /* Background color on hover */
 }
 
 /* Placeholder button styling */
