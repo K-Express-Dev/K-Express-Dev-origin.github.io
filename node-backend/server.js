@@ -16,6 +16,8 @@ app.use(express.json());
 app.post('/create-checkout-session', async (req, res) => {
   const { cartItems } = req.body;
 
+  console.log('Received cart items:', cartItems);
+
   const lineItems = cartItems.map(item => ({
     price_data: {
       currency: 'usd',
@@ -27,6 +29,8 @@ app.post('/create-checkout-session', async (req, res) => {
     quantity: item.quantity,
   }));
 
+  console.log('Generated line items:', lineItems);
+
   try {
     const session = await stripeClient.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -35,6 +39,8 @@ app.post('/create-checkout-session', async (req, res) => {
       success_url: `${process.env.CLIENT_URL}/success`,
       cancel_url: `${process.env.CLIENT_URL}/cancel`,
     });
+
+    console.log('Checkout session created:', session);
 
     res.json({ id: session.id });
   } catch (error) {
@@ -46,4 +52,7 @@ app.post('/create-checkout-session', async (req, res) => {
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+  console.log(`Stripe Secret Key: ${process.env.STRIPE_SECRET_KEY ? 'Loaded' : 'Not Loaded'}`);
+  console.log(`Google Client ID: ${process.env.GOOGLE_CLIENT_ID ? 'Loaded' : 'Not Loaded'}`);
+  console.log(`Client URL: ${process.env.CLIENT_URL}`);
 });
