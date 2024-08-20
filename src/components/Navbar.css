@@ -60,6 +60,8 @@
   border-radius: 25px; /* Rounded corners */
   cursor: pointer; /* Pointer cursor on hover */
   text-decoration: none; /* Remove text decoration */
+  font-size: 1rem; /* Font size */
+  font-family: Arial, sans-serif; /* Font family */
 }
 
 /* Navbar login button hover effect */
@@ -107,4 +109,24 @@ button {
 }
 .navbar-cart:hover {
   background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Navbar logout button styling */
+.navbar-logout {
+  margin-left: 0.5rem; /* Margin to the left */
+  padding: 0.45rem 1.3rem; /* Reduced padding inside the button */
+  background-color: #ffffff; /* Background color */
+  color: rgb(0, 0, 0); /* Text color */
+  border: none; /* Remove border */
+  border-radius: 25px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  text-decoration: none; /* Remove text decoration */
+  font-size: 1rem; /* Font size */
+  font-family: Arial, sans-serif; /* Font family */
+}
+
+/* Navbar logout button hover effect */
+.navbar-logout:hover {
+  background-color: #000000; /* Background color on hover */
+  color: #ffffff; /* Text color on hover */
 }

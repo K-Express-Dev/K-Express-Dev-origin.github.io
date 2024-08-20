@@ -1,6 +1,8 @@
 // App.js
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth} from './components/firebase'; // Make sure to import auth from your firebase config
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import SignUp from './components/SignUp';
@@ -9,8 +11,9 @@ import AboutUs from './components/AboutUs';
 import Cart from './components/Cart';
 import Checkout from './components/Checkout';
 import SellerPage from './components/SellerPage';
-import Footer from './components/Footer'; // Import the Footer component
+import Footer from './components/Footer';
 import './App.css';
+import Profile from './components/Profile';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
 function App() {
@@ -19,10 +22,19 @@ function App() {
     const savedCartItems = localStorage.getItem('cartItems');
     return savedCartItems ? JSON.parse(savedCartItems) : [];
   });
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }, [cartItems]);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsAuthenticated(!!user);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const toggleCart = () => {
     setShowCart(!showCart);
@@ -38,7 +50,7 @@ function App() {
       }
       return [...prevItems, { ...item, quantity: 1 }];
     });
-    setShowCart(true); // Open the cart when an item is added
+    setShowCart(true);
   };
 
   const removeFromCart = (id) => {
@@ -51,16 +63,25 @@ function App() {
         item.id === id ? { ...item, quantity: quantity } : item
       )
     );
-    setShowCart(true); // Open the cart when quantity is updated
+    setShowCart(true);
   };
 
   const cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+
+  const handleLogout = () => {
+    auth.signOut();
+  };
 
   return (
     <GoogleOAuthProvider clientId="526350682823-d30q8ds3j0pktkqvkdt2sqm78speucr0.apps.googleusercontent.com">
       <Router>
         <div className="App">
-          <Navbar toggleCart={toggleCart} cartItemCount={cartItemCount} />
+          <Navbar 
+            toggleCart={toggleCart} 
+            cartItemCount={cartItemCount} 
+            isAuthenticated={isAuthenticated}
+            onLogout={handleLogout}
+          />
           <div className="content">
             <Routes>
               <Route path="/" element={<Home addToCart={addToCart} />} />
@@ -69,6 +90,7 @@ function App() {
               <Route path="/about" element={<AboutUs />} />
               <Route path="/checkout" element={<Checkout cartItems={cartItems} />} />
               <Route path="/seller/:id" element={<SellerPage addToCart={addToCart} />} />
+              <Route path="/profile" element={<Profile />} />
             </Routes>
             {showCart && (
               <Cart 

@@ -1,91 +1,82 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { GoogleLogin } from '@react-oauth/google';
-import { jwtDecode } from "jwt-decode";
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { auth } from './firebase';
+import { useNavigate } from 'react-router-dom';
+import './AuthStyles.css';
+
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleLogin = async () => {
+    setLoading(true);
     try {
-      const response = await axios.post('http://localhost:3001/login', {
-        email,
-        password
-      });
-      localStorage.setItem('token', response.data.token);
-      // Redirect or update state to reflect the user is logged in
+      await signInWithEmailAndPassword(auth, email, password);
+      navigate('/');
     } catch (error) {
-      console.error('Login error', error.response.data);
+      setError(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleGoogleSuccess = async (credentialResponse) => {
+  const handleGoogleLogin = async () => {
+    setLoading(true);
+    const provider = new GoogleAuthProvider();
     try {
-      const decodedToken = jwtDecode(credentialResponse.credential);
-      const response = await axios.post('http://localhost:3001/api/auth/google', {
-        token: credentialResponse.credential
-      });
-      localStorage.setItem('token', response.data.token);
-      // Redirect or update state to reflect the user is logged in
+      await signInWithPopup(auth, provider);
+      navigate('/');
     } catch (error) {
-      console.error('Google login error', error);
+      setError(error.message);
+    } finally {
+      setLoading(false);
     }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleLogin();
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-          required
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-          required
-        />
-        <button type="submit">Login</button>
-      </form>
-      <div style={{ marginTop: '20px' }}>
-        <GoogleLogin
-          onSuccess={handleGoogleSuccess}
-          onError={() => console.log('Google Login Failed')}
-          render={({ onClick, disabled }) => (
-            <button
-              onClick={onClick}
-              disabled={disabled}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: '10px 15px',
-                border: '1px solid #dadce0',
-                borderRadius: '4px',
-                backgroundColor: 'white',
-                color: '#3c4043',
-                fontSize: '14px',
-                fontWeight: '500',
-                fontFamily: 'Roboto, sans-serif',
-                cursor: 'pointer',
-                width: '100%',
-                maxWidth: '240px',
-              }}
-            >
-              <img
-                src="https://developers.google.com/identity/images/g-logo.png"
-                alt="Google logo"
-                style={{ marginRight: '10px', width: '18px', height: '18px' }}
-              />
-              Continue with Google
-            </button>
-          )}
-        />
+    <div className="auth-container">
+      <div className="auth-card">
+        <h2 className="auth-title">Login</h2>
+        {error && <p className="auth-error">{error}</p>}
+        <form onSubmit={handleSubmit} className="auth-form">
+          <input
+            className="auth-input"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            required
+          />
+          <input
+            className="auth-input"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+            required
+          />
+          <button className="auth-button" type="submit" disabled={loading}>
+            {loading ? <span className="auth-spinner"></span> : 'Login'}
+          </button>
+        </form>
+        <div style={{ marginTop: '20px' }}>
+          <button className="auth-google-button" onClick={handleGoogleLogin} disabled={loading}>
+            {loading ? <span className="auth-spinner"></span> : (
+              <>
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo" width="18" height="18" />
+                Continue with Google
+              </>
+            )}
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -11,6 +11,7 @@
   .food-image {
     height: 200px;
     overflow: hidden;
+    border-radius: 8px;
   }
   
   .food-image img {
