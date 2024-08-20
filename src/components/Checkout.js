@@ -72,7 +72,6 @@ function CheckoutForm({ cartItems }) {
         <div className="card-details">
           <input type="text" placeholder="MM / YY" />
           <input type="text" placeholder="CVC" />
-          <span className="cvc-info">ℹ️</span>
         </div>
         <div className="billing-info">
           <input type="checkbox" id="same-as-shipping" />
