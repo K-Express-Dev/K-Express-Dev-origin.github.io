@@ -8,6 +8,10 @@ import './Checkout.css';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
+const calculateTotal = (cartItems) => {
+  return cartItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
+};
+
 function CheckoutForm({ cartItems }) {
   const stripe = useStripe();
   const elements = useElements();
@@ -40,72 +44,43 @@ function CheckoutForm({ cartItems }) {
     }
 
     try {
-      const response = await axios.post('http://localhost:3001/create-payment-intent', {
-        amount: calculateTotal(cartItems),
+      const response = await axios.post('http://localhost:3001/create-checkout-session', {
+        cartItems,
         userId: user ? user.uid : null, // Include user ID if available
       });
 
-      const { clientSecret } = response.data;
+      const { id } = response.data;
 
-      const result = await stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-          card: elements.getElement(CardElement),
-          billing_details: {
-            name: user ? user.displayName : 'Jenny Rosen', // Use user's name if available
-            email: email,
-            address: {
-              line1: address,
-            },
-            phone: phone,
-          },
-        },
-      });
-
-      if (result.error) {
-        setError(result.error.message);
-      } else {
-        if (result.paymentIntent.status === 'succeeded') {
-          navigate('/success');
-        }
+      const { error } = await stripe.redirectToCheckout({ sessionId: id });
+      if (error) {
+        console.error(error);
+        setError(error.message);
+        setProcessing(false);
       }
-    } catch (err) {
-      setError('An error occurred. Please try again.');
+    } catch (error) {
+      console.error(error);
+      setError(error.message);
+      setProcessing(false);
     }
-    
-    setProcessing(false);
-  };
-
-  const calculateTotal = (items) => {
-    return items.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="contact-information">
-        <h3>Contact Information</h3>
-        <div className="contact-input">
-          <input
-            type="email"
-            placeholder="Email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Address"
-            required
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-          />
-          <input
-            type="tel"
-            placeholder="Phone Number"
-            required
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-          />
-        </div>
+      <div className="billing-details">
+        <input
+          type="text"
+          placeholder="Address"
+          required
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+        />
+        <input
+          type="tel"
+          placeholder="Phone Number"
+          required
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+        />
       </div>
       <div className="card-information">
         <h3>Card Information</h3>
