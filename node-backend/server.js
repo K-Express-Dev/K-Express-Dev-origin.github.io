@@ -3,6 +3,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const stripe = require('stripe');
 const { OAuth2Client } = require('google-auth-library');
+const stripe = require('stripe')('pk_test_51PirtbLEiREtRO6CGONL8gaCUqN1lfFdOc7ySIO0iFqPWIa6n32BIWQNAKSaj6Woo5hhneLxq3xpCUCTdn2UKFxO00dM0Yoa8Y');
 
 dotenv.config();
 
@@ -14,19 +15,24 @@ app.use(cors());
 app.use(express.json());
 
 // Existing Stripe payment intent route
-app.post('/create-payment-intent', async (req, res) => {
-  try {
-    const { amount } = req.body;
+app.post('/create-checkout-session', async (req, res) => {
+  const session = await stripe.checkout.sessions.create({
+    line_items: [{
+      price_data: {
+        currency: 'usd',
+        product_data: {
+          name: 'T-shirt',
+        },
+        unit_amount: 2000,
+      },
+      quantity: 1,
+    }],
+    mode: 'payment',
+    ui_mode: 'embedded',
+    return_url: 'https://localhost:3000/checkout/return?session_id={CHECKOUT_SESSION_ID}'
+  });
 
-    const paymentIntent = await stripeClient.paymentIntents.create({
-      amount: Math.round(amount * 100), // Stripe expects amount in cents
-      currency: 'usd',
-    });
-
-    res.json({ clientSecret: paymentIntent.client_secret });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+  res.send({clientSecret: session.client_secret});
 });
 
 // New Google authentication route
