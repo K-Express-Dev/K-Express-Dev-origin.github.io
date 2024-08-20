@@ -21,7 +21,8 @@ const Terms = () => {
       <p>K-Express charges certain fees for various transactions effected through the Service, as set forth in our Fee Policy. Unless otherwise stated, all fees are quoted in U.S. dollars.</p>
       
       <h3>Fee Policy for Sellers</h3>
-      <ul>
+      <p>Our service is designed to help Sellers do what they love most without worrying about logistics. All of our fees are simple and straightforward:</p>
+      <ul className="fee-policy-list">
         <li>It's always free to list a meal for purchase on K-Express.</li>
         <li>After a listed meal is purchased, we deduct a percentage from the final order price.</li>
         <li>We collect 15% of each transaction to provide access to Customers.</li>
@@ -50,7 +51,7 @@ const Terms = () => {
       <h2>Questions? Concerns? Suggestions?</h2>
       <p>Please contact us at k.express.dev@gmail.com to report any violations of these Terms of Service or to pose any questions regarding this Terms of Service or the Service.</p>
       
-      <p className="last-revised">Date of Last Revision: [Current Date]</p>
+      <p className="last-revised">Date of Last Revision: Aug 20, 2024</p>
     </div>
   );
 };

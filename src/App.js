@@ -12,6 +12,7 @@ import Cart from './components/Cart';
 import Checkout from './components/Checkout';
 import SellerPage from './components/SellerPage';
 import Footer from './components/Footer';
+import Terms from './components/Terms';
 import './App.css';
 import Profile from './components/Profile';
 import { GoogleOAuthProvider } from '@react-oauth/google';
@@ -91,6 +92,8 @@ function App() {
               <Route path="/checkout" element={<Checkout cartItems={cartItems} />} />
               <Route path="/seller/:id" element={<SellerPage addToCart={addToCart} />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/terms" element={<Terms />} />
+
             </Routes>
             {showCart && (
               <Cart 
