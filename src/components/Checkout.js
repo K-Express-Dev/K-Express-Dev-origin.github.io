@@ -58,9 +58,29 @@ function CheckoutForm({ cartItems }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <CardElement />
+      <div className="card-information">
+        <h3>Card Information</h3>
+        <div className="card-input">
+          <input type="text" placeholder="1234 1234 1234 1234" />
+          <div className="card-icons">
+            <span className="visa">VISA</span>
+            <span className="mastercard">Mastercard</span>
+            <span className="amex">AMEX</span>
+            <span className="diners">Diners</span>
+          </div>
+        </div>
+        <div className="card-details">
+          <input type="text" placeholder="MM / YY" />
+          <input type="text" placeholder="CVC" />
+          <span className="cvc-info">ℹ️</span>
+        </div>
+        <div className="billing-info">
+          <input type="checkbox" id="same-as-shipping" />
+          <label htmlFor="same-as-shipping">Billing info is same as shipping</label>
+        </div>
+      </div>
       {error && <div className="error">{error}</div>}
-      <button type="submit" disabled={!stripe || processing}>
+      <button type="submit" className="pay-button" disabled={!stripe || processing}>
         {processing ? 'Processing...' : `Pay $${calculateTotal(cartItems)}`}
       </button>
     </form>

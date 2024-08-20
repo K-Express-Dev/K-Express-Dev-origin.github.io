@@ -1,65 +1,118 @@
 .checkout {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  .checkout h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .cart-summary {
-    background-color: #f8f8f8;
-    padding: 20px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-  }
-  
-  .cart-item-summary {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-  }
-  
-  .total {
-    margin-top: 10px;
-    text-align: right;
-  }
-  
-  form {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .StripeElement {
-    margin-bottom: 20px;
-  }
-  
-  button[type="submit"] {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #ff3c00;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  button[type="submit"]:hover {
-    background-color: #000000;
-  }
-  
-  button[type="submit"]:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
-  }
-  
-  .error {
-    color: #ff0000;
-    margin-bottom: 10px;
-  }
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.checkout h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.cart-summary {
+  background-color: #f8f8f8;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.cart-item-summary {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.total {
+  margin-top: 10px;
+  text-align: right;
+}
+
+form {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card-information {
+  margin-bottom: 20px;
+}
+
+.card-input {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.card-input input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.card-icons {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 5px;
+}
+
+.card-icons span {
+  font-size: 12px;
+  color: #888;
+}
+
+.card-details {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.card-details input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.cvc-info {
+  align-self: center;
+  color: #888;
+  cursor: pointer;
+}
+
+.billing-info {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.pay-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #e74302;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.pay-button:hover {
+  background-color: #c81e04;
+}
+
+.pay-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.error {
+  color: #ff0000;
+  margin-bottom: 10px;
+}
