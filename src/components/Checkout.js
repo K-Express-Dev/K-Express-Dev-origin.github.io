@@ -14,6 +14,9 @@ function CheckoutForm({ cartItems }) {
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState(false);
   const [user, setUser] = useState(null); // State to hold user information
+  const [email, setEmail] = useState('');
+  const [address, setAddress] = useState('');
+  const [phone, setPhone] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,6 +24,7 @@ function CheckoutForm({ cartItems }) {
       const currentUser = auth.currentUser;
       if (currentUser) {
         setUser(currentUser);
+        setEmail(currentUser.email);
       }
     };
 
@@ -48,7 +52,11 @@ function CheckoutForm({ cartItems }) {
           card: elements.getElement(CardElement),
           billing_details: {
             name: user ? user.displayName : 'Jenny Rosen', // Use user's name if available
-            email: user ? user.email : '', // Use user's email if available
+            email: email,
+            address: {
+              line1: address,
+            },
+            phone: phone,
           },
         },
       });
@@ -76,9 +84,27 @@ function CheckoutForm({ cartItems }) {
       <div className="contact-information">
         <h3>Contact Information</h3>
         <div className="contact-input">
-          <input type="email" placeholder="Email" required defaultValue={user ? user.email : ''} />
-          <input type="text" placeholder="Address" required />
-          <input type="tel" placeholder="Phone Number" required />
+          <input
+            type="email"
+            placeholder="Email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Address"
+            required
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+          />
+          <input
+            type="tel"
+            placeholder="Phone Number"
+            required
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          />
         </div>
       </div>
       <div className="card-information">
