@@ -58,6 +58,14 @@ function CheckoutForm({ cartItems }) {
 
   return (
     <form onSubmit={handleSubmit}>
+      <div className="contact-information">
+      <h3>Contact Information</h3>
+      <div className="contact-input">
+        <input type="email" placeholder="Email" required />
+        <input type="text" placeholder="Address" required />
+        <input type="tel" placeholder="Phone Number" required />
+      </div>
+      </div>
       <div className="card-information">
         <h3>Card Information</h3>
         <div className="card-input">
