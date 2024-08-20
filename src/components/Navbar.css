@@ -4,7 +4,7 @@
   justify-content: space-between; /* Space out items evenly */
   align-items: center; /* Center items vertically */
   padding: 0.3rem 2rem; /* Padding inside the navbar */
-  background-color: #f9f9f9; /* Background color of the navbar */
+  background-color: #ffffff; /* Background color of the navbar */
   text-decoration: none; /* Remove text decoration */
   position: fixed; /* Fix the navbar to the viewport */
   top: 0; /* Stick to the top */
