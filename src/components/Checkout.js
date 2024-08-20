@@ -66,22 +66,6 @@ function CheckoutForm({ cartItems }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="billing-details">
-        <input
-          type="text"
-          placeholder="Address"
-          required
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-        />
-        <input
-          type="tel"
-          placeholder="Phone Number"
-          required
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-        />
-      </div>
       <div className="card-information">
         <h3>Card Information</h3>
         <div className="card-input">
