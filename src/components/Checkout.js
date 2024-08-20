@@ -38,27 +38,27 @@ function CheckoutForm({ cartItems }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setProcessing(true);
-
+  
     if (!stripe || !elements) {
       return;
     }
-
+  
     try {
       const response = await axios.post('http://localhost:3001/create-checkout-session', {
         cartItems,
         userId: user ? user.uid : null, // Include user ID if available
       });
-
+  
       const { id } = response.data;
-
+  
       const { error } = await stripe.redirectToCheckout({ sessionId: id });
       if (error) {
-        console.error(error);
+        console.error('Stripe redirectToCheckout error:', error);
         setError(error.message);
         setProcessing(false);
       }
     } catch (error) {
-      console.error(error);
+      console.error('Axios post error:', error);
       setError(error.message);
       setProcessing(false);
     }
