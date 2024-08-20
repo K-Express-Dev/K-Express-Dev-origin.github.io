@@ -66,16 +66,6 @@ function CheckoutForm({ cartItems }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="card-information">
-        <h3>Card Information</h3>
-        <div className="card-input">
-          <CardElement />
-        </div>
-        <div className="billing-info">
-          <input type="checkbox" id="same-as-shipping" />
-          <label htmlFor="same-as-shipping">Billing info is same as shipping</label>
-        </div>
-      </div>
       {error && <div className="error">{error}</div>}
       <button type="submit" className="pay-button" disabled={!stripe || processing}>
         {processing ? 'Processing...' : `Pay $${calculateTotal(cartItems)}`}
@@ -96,7 +86,7 @@ function Checkout() {
 
   return (
     <div className="checkout">
-      <h2>Checkout</h2>
+      <h2>Continue to Checkout</h2>
       <div className="cart-summary">
         <h3>Order Summary</h3>
         {cartItems.map((item) => (
