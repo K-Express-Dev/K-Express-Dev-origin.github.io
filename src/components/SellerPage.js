@@ -1,26 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { FaStar, FaCheck, FaHeart, FaComment, FaShare } from 'react-icons/fa';
 import './SellerPage.css';
+import octoingred from './images/octo_ingred.jpeg'
+import khotpot from './images/four_packed.jpeg'
+import spicyOctopusImage from './images/spicy_octopus.jpeg';
 
 const SellerPage = ({ addToCart }) => {
   const [selectedDish, setSelectedDish] = useState(null);
 
   const seller = {
-    name: "ahaar tiffins",
-    image: "/path/to/seller-image.jpg",
+    name: "Irvine Dining",
+    image: spicyOctopusImage,
     rating: 4.9,
     reviewCount: 313,
     mealsPrepared: 997,
     certifications: ["Food safety"],
-    description: "Good News for new K-express customers only !! New customers get $15 off their next 3 orders, use my referral code shef-aahaar-986 for your next order. 🍊 Food that makes you happy 😊 My name is Parul and I am from Delhi India.",
-    cuisineTypes: ["Organic", "North Indian", "Punjabi", "Indian", "Delhi", "Vegetarian", "Comfort"],
+    description: "",
+    cuisineTypes: ["Organic", "Korean", "Stews", "Vegetarian", "Comfort"],
   };
 
   const popularDishes = [
     { 
       id: 1,
-      name: 'Guruji Langar Dal', 
-      image: '/path/to/dal.jpg', 
+      name: 'Spicy Octopus', 
+      image: octoingred, 
       rating: 96, 
       reviewCount: 26, 
       servings: '1 serving', 
@@ -29,13 +32,13 @@ const SellerPage = ({ addToCart }) => {
     },
     { 
       id: 2,
-      name: 'Phulka Roti', 
-      image: '/path/to/roti.jpg', 
+      name: 'Korean Hotpot Stew', 
+      image: khotpot, 
       rating: 96, 
       reviewCount: 47, 
       servings: '1-2 servings', 
       price: 5.99, 
-      description: 'Soft and fluffy whole wheat flatbread, perfect for scooping up curries and dals.'
+      description: 'Soft and fluffy thin sliced briskets and noodles in Korean Pyogo Broth.'
     },
     { 
       id: 3,
