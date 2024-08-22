@@ -43,7 +43,7 @@ Desktop.ini
 $RECYCLE.BIN/
 
 # dotenv environment variables file
-# node-backend/.env
+node-backend/.env
 
 # Firebase service account key
 node-backend/server/serviceAccountKey.json
