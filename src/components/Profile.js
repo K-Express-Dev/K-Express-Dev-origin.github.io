@@ -13,6 +13,7 @@ function Profile() {
     favoriteCuisine: '',
     phoneNumber: ''
   });
+  const [sellerRequest, setSellerRequest] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -27,6 +28,7 @@ function Profile() {
             favoriteCuisine: userDoc.data().favoriteCuisine || '',
             phoneNumber: userDoc.data().phoneNumber || ''
           });
+          setSellerRequest(userDoc.data().sellerRequest || false);
         }
       }
       setLoading(false);
@@ -49,6 +51,17 @@ function Profile() {
       setEditing(false);
     } catch (error) {
       console.error('Error updating profile:', error);
+    }
+    setLoading(false);
+  };
+
+  const handleSellerRequest = async () => {
+    setLoading(true);
+    try {
+      await updateDoc(doc(db, 'users', user.id), { sellerRequest: true });
+      setSellerRequest(true);
+    } catch (error) {
+      console.error('Error requesting seller status:', error);
     }
     setLoading(false);
   };
@@ -117,6 +130,10 @@ function Profile() {
           <p><strong>Bio:</strong> {user.bio || 'No bio available'}</p>
           <p><strong>Favorite Cuisine:</strong> {user.favoriteCuisine || 'Not specified'}</p>
           <p><strong>Phone Number:</strong> {user.phoneNumber || 'Not provided'}</p>
+          {!sellerRequest && (
+            <button onClick={handleSellerRequest} className="seller-request-button">Request to be a Seller</button>
+          )}
+          {sellerRequest && <p>Your request to be a seller has been submitted and awaits approval.</p>}
           <button onClick={() => setEditing(true)} className="edit-button">Edit Profile</button>
         </div>
       )}
