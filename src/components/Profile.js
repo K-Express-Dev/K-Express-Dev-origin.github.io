@@ -17,8 +17,7 @@ function Profile() {
   const [isSeller, setIsSeller] = useState(false);
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      const currentUser = auth.currentUser;
+    const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
       if (currentUser) {
         const userDoc = await getDoc(doc(db, 'users', currentUser.uid));
         if (userDoc.exists()) {
@@ -32,11 +31,13 @@ function Profile() {
           setSellerRequest(userDoc.data().sellerRequest || false);
           setIsSeller(userDoc.data().seller || false);
         }
+      } else {
+        setUser(null);
       }
       setLoading(false);
-    };
+    });
 
-    fetchUserData();
+    return () => unsubscribe();
   }, []);
 
   const handleInputChange = (e) => {
