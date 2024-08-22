@@ -75,7 +75,7 @@ function App() {
   };
 
   return (
-    <GoogleOAuthProvider clientId="526350682823-d30q8ds3j0pktkqvkdt2sqm78speucr0.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT_ID}>
       <Router>
         <div className="App">
           <Navbar 
