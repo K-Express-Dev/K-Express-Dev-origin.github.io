@@ -3,64 +3,71 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import axios from 'axios';
+import { auth } from './firebase'; // Import Firebase Authentication
 import './Checkout.css';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
+
+const calculateTotal = (cartItems) => {
+  return cartItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
+};
 
 function CheckoutForm({ cartItems }) {
   const stripe = useStripe();
   const elements = useElements();
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState(false);
+  const [user, setUser] = useState(null); // State to hold user information
+  const [email, setEmail] = useState('');
+  const [address, setAddress] = useState('');
+  const [phone, setPhone] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchUserData = () => {
+      const currentUser = auth.currentUser;
+      if (currentUser) {
+        setUser(currentUser);
+        setEmail(currentUser.email);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setProcessing(true);
-
+  
     if (!stripe || !elements) {
       return;
     }
-
+  
     try {
-      const response = await axios.post('http://localhost:3001/create-payment-intent', {
-        amount: calculateTotal(cartItems),
+      const response = await axios.post('http://localhost:3001/create-checkout-session', {
+        cartItems,
+        userId: user ? user.uid : null, // Include user ID if available
       });
-
-      const { clientSecret } = response.data;
-
-      const result = await stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-          card: elements.getElement(CardElement),
-          billing_details: {
-            name: 'Jenny Rosen', // You might want to collect this from the user
-          },
-        },
-      });
-
-      if (result.error) {
-        setError(result.error.message);
-      } else {
-        if (result.paymentIntent.status === 'succeeded') {
-          navigate('/success');
-        }
+  
+      const { id } = response.data;
+  
+      const { error } = await stripe.redirectToCheckout({ sessionId: id });
+      if (error) {
+        console.error('Stripe redirectToCheckout error:', error);
+        setError(error.message);
+        setProcessing(false);
       }
-    } catch (err) {
-      setError('An error occurred. Please try again.');
+    } catch (error) {
+      console.error('Axios post error:', error);
+      setError(error.message);
+      setProcessing(false);
     }
-    
-    setProcessing(false);
-  };
-
-  const calculateTotal = (items) => {
-    return items.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <CardElement />
       {error && <div className="error">{error}</div>}
-      <button type="submit" disabled={!stripe || processing}>
+      <button type="submit" className="pay-button" disabled={!stripe || processing}>
         {processing ? 'Processing...' : `Pay $${calculateTotal(cartItems)}`}
       </button>
     </form>
@@ -79,7 +86,7 @@ function Checkout() {
 
   return (
     <div className="checkout">
-      <h2>Checkout</h2>
+      <h2>Continue to Checkout</h2>
       <div className="cart-summary">
         <h3>Order Summary</h3>
         {cartItems.map((item) => (

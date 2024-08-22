@@ -13,10 +13,11 @@ function Profile() {
     favoriteCuisine: '',
     phoneNumber: ''
   });
+  const [sellerRequest, setSellerRequest] = useState(false);
+  const [isSeller, setIsSeller] = useState(false);
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      const currentUser = auth.currentUser;
+    const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
       if (currentUser) {
         const userDoc = await getDoc(doc(db, 'users', currentUser.uid));
         if (userDoc.exists()) {
@@ -27,12 +28,16 @@ function Profile() {
             favoriteCuisine: userDoc.data().favoriteCuisine || '',
             phoneNumber: userDoc.data().phoneNumber || ''
           });
+          setSellerRequest(userDoc.data().sellerRequest || false);
+          setIsSeller(userDoc.data().seller || false);
         }
+      } else {
+        setUser(null);
       }
       setLoading(false);
-    };
+    });
 
-    fetchUserData();
+    return () => unsubscribe();
   }, []);
 
   const handleInputChange = (e) => {
@@ -49,6 +54,17 @@ function Profile() {
       setEditing(false);
     } catch (error) {
       console.error('Error updating profile:', error);
+    }
+    setLoading(false);
+  };
+
+  const handleSellerRequest = async () => {
+    setLoading(true);
+    try {
+      await updateDoc(doc(db, 'users', user.id), { sellerRequest: true });
+      setSellerRequest(true);
+    } catch (error) {
+      console.error('Error requesting seller status:', error);
     }
     setLoading(false);
   };
@@ -117,6 +133,11 @@ function Profile() {
           <p><strong>Bio:</strong> {user.bio || 'No bio available'}</p>
           <p><strong>Favorite Cuisine:</strong> {user.favoriteCuisine || 'Not specified'}</p>
           <p><strong>Phone Number:</strong> {user.phoneNumber || 'Not provided'}</p>
+          {!sellerRequest && (
+            <button onClick={handleSellerRequest} className="seller-request-button">Request to be a Seller</button>
+          )}
+          {sellerRequest && !isSeller && <p>Your request to be a seller has been submitted and awaits approval.</p>}
+          {isSeller && sellerRequest && <button className="manage-button">Manage</button>}
           <button onClick={() => setEditing(true)} className="edit-button">Edit Profile</button>
         </div>
       )}

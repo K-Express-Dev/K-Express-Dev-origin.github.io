@@ -3,9 +3,15 @@
   display: flex; /* Use flexbox for layout */
   justify-content: space-between; /* Space out items evenly */
   align-items: center; /* Center items vertically */
-  padding: 1rem 2rem; /* Padding inside the navbar */
-  background-color: #ffdd00; /* Background color of the navbar */
+  padding: 0.3rem 2rem; /* Padding inside the navbar */
+  background-color: #ffffff; /* Background color of the navbar */
   text-decoration: none; /* Remove text decoration */
+  position: fixed; /* Fix the navbar to the viewport */
+  top: 0; /* Stick to the top */
+  left: 0; /* Align to the left edge */
+  right: 0; /* Stretch across the full width */
+  z-index: 1000; /* Ensure the navbar stays on top of other content */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .navbar-cart {
@@ -26,8 +32,14 @@
 
 /* Navbar brand styling */
 .navbar-brand {
-  text-decoration: none; /* Remove text decoration */
-  color: #333; /* Text color */
+  text-decoration: none;
+  color: #333;
+  display: flex;
+  align-items: center;
+}
+.navbar-logo {
+  height: 65px; /* Adjust this value to match your desired logo height */
+  width: auto; /* This will maintain the aspect ratio of your logo */
 }
 
 /* Navbar left section styling */
@@ -74,7 +86,7 @@
 .navbar-signup {
   margin-left: 0.5rem; /* Margin to the left */
   padding: 0.55rem 1.5rem; /* Padding inside the button */
-  background-color: #02346b; /* Background color */
+  background-color: #ef4646; /* Background color */
   color: white; /* Text color */
   border: none; /* Remove border */
   border-radius: 25px; /* Rounded corners */
@@ -84,7 +96,7 @@
 
 /* Navbar signup button hover effect */
 .navbar-signup:hover {
-  background-color: #206ab9; /* Background color on hover */
+  background-color: #f11a1a; /* Background color on hover */
 }
 
 /* Placeholder button styling */
@@ -129,4 +141,8 @@ button {
 .navbar-logout:hover {
   background-color: #000000; /* Background color on hover */
   color: #ffffff; /* Text color on hover */
+}
+
+body {
+  padding-top: 75px; /* This should match the height of your navbar */
 }

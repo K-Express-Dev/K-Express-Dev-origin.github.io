@@ -12,7 +12,7 @@ const Home = () => {
       image: spicyOctopusImage,
       title: 'Korean BBQ Meals',
       seller: 'First Last',
-      locations: ['Irvine, CA', 'San Diego, CA'],
+      locations: ['Irvine, CA'],
       days: ['Wednesday', 'Saturday'],
     },
     {
@@ -20,7 +20,7 @@ const Home = () => {
       image: '/path/to/stew-soup-image1.jpg',
       title: 'Stew & Soup Meals',
       seller: 'First Last',
-      locations: ['Irvine, CA'],
+      locations: ['San Diego, CA' , 'Anaheim, CA'],
       days: ['Wednesday', 'Friday'],
     },
     {
@@ -28,7 +28,7 @@ const Home = () => {
       image: '/path/to/stew-soup-image2.jpg',
       title: 'Stew & Soup Meals',
       seller: 'First Last',
-      locations: ['Irvine, CA'],
+      locations: ['San Diego, CA'],
       days: ['Wednesday', 'Friday'],
     },
     {
@@ -36,7 +36,7 @@ const Home = () => {
       image: '/path/to/stew-soup-image2.jpg',
       title: 'Stew & Soup Meals',
       seller: 'First Last',
-      locations: ['Irvine, CA'],
+      locations: ['San Diego, CA'],
       days: ['Wednesday', 'Friday'],
     },
     {
@@ -44,7 +44,7 @@ const Home = () => {
       image: '/path/to/stew-soup-image2.jpg',
       title: 'Stew & Soup Meals',
       seller: 'First Last',
-      locations: ['Irvine, CA'],
+      locations: ['San Diego, CA'],
       days: ['Wednesday', 'Friday'],
     },
   ];

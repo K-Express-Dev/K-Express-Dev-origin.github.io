@@ -1,0 +1,79 @@
+.terms-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    font-size: 14px;
+    text-align: left;
+  }
+  
+  .terms-container h1 {
+    font-size: 24px;
+    color: #1a1a1a;
+    border-bottom: 2px solid #1a1a1a;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .terms-container h2 {
+    font-size: 20px;
+    color: #333;
+    margin-top: 30px;
+    margin-bottom: 15px;
+  }
+  
+  .terms-container h3 {
+    font-size: 18px;
+    color: #444;
+    margin-top: 25px;
+    margin-bottom: 10px;
+  }
+  
+  .terms-container p {
+    margin-bottom: 15px;
+  }
+  
+  .terms-container ul {
+    margin-bottom: 15px;
+    padding-left: 30px;
+  }
+  
+  .terms-container li {
+    margin-bottom: 10px;
+  }
+  
+  .fee-policy-list {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+  
+  .fee-policy-list li {
+    margin-bottom: 8px;
+  }
+  
+  .last-revised {
+    font-style: italic;
+    color: #666;
+    margin-top: 30px;
+  }
+  
+  @media (max-width: 600px) {
+    .terms-container {
+      padding: 10px;
+      font-size: 13px;
+    }
+    
+    .terms-container h1 {
+      font-size: 22px;
+    }
+    
+    .terms-container h2 {
+      font-size: 18px;
+    }
+    
+    .terms-container h3 {
+      font-size: 16px;
+    }
+  }
