@@ -3,24 +3,21 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import axios from 'axios';
-import { auth } from './firebase'; // Import Firebase Authentication
+import { auth } from './firebase';
 import './Checkout.css';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
-
-const calculateTotal = (cartItems) => {
-  return cartItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
-};
 
 function CheckoutForm({ cartItems }) {
   const stripe = useStripe();
   const elements = useElements();
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState(false);
-  const [user, setUser] = useState(null); // State to hold user information
+  const [user, setUser] = useState(null);
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
   const [phone, setPhone] = useState('');
+  const [orderSummary, setOrderSummary] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -46,10 +43,12 @@ function CheckoutForm({ cartItems }) {
     try {
       const response = await axios.post('http://localhost:3001/create-checkout-session', {
         cartItems,
-        userId: user ? user.uid : null, // Include user ID if available
+        userId: user ? user.uid : null,
       });
   
-      const { id } = response.data;
+      const { id, subtotal, fees, taxes, total } = response.data;
+      
+      setOrderSummary({ subtotal, fees, taxes, total });
   
       const { error } = await stripe.redirectToCheckout({ sessionId: id });
       if (error) {
@@ -67,8 +66,17 @@ function CheckoutForm({ cartItems }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && <div className="error">{error}</div>}
+      {orderSummary && (
+        <div className="order-summary">
+          <h3>Order Summary</h3>
+          <p>Subtotal: ${(orderSummary.subtotal / 100).toFixed(2)}</p>
+          <p>Fees: ${(orderSummary.fees / 100).toFixed(2)}</p>
+          <p>Taxes: ${(orderSummary.taxes / 100).toFixed(2)}</p>
+          <p><strong>Total: ${(orderSummary.total / 100).toFixed(2)}</strong></p>
+        </div>
+      )}
       <button type="submit" className="pay-button" disabled={!stripe || processing}>
-        {processing ? 'Processing...' : `Pay $${calculateTotal(cartItems)}`}
+        {processing ? 'Processing...' : 'Proceed to Payment'}
       </button>
     </form>
   );
@@ -86,18 +94,15 @@ function Checkout() {
 
   return (
     <div className="checkout">
-      <h2>Continue to Checkout</h2>
+      <h2>Checkout</h2>
       <div className="cart-summary">
-        <h3>Order Summary</h3>
+        <h3>Items in Cart</h3>
         {cartItems.map((item) => (
           <div key={item.id} className="cart-item-summary">
             <span>{item.name}</span>
             <span>${item.price.toFixed(2)} x {item.quantity}</span>
           </div>
         ))}
-        <div className="total">
-          <strong>Total: ${cartItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)}</strong>
-        </div>
       </div>
       <Elements stripe={stripePromise}>
         <CheckoutForm cartItems={cartItems} />
