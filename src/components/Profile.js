@@ -14,6 +14,7 @@ function Profile() {
     phoneNumber: ''
   });
   const [sellerRequest, setSellerRequest] = useState(false);
+  const [isSeller, setIsSeller] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -29,6 +30,7 @@ function Profile() {
             phoneNumber: userDoc.data().phoneNumber || ''
           });
           setSellerRequest(userDoc.data().sellerRequest || false);
+          setIsSeller(userDoc.data().seller || false);
         }
       }
       setLoading(false);
@@ -133,7 +135,8 @@ function Profile() {
           {!sellerRequest && (
             <button onClick={handleSellerRequest} className="seller-request-button">Request to be a Seller</button>
           )}
-          {sellerRequest && <p>Your request to be a seller has been submitted and awaits approval.</p>}
+          {sellerRequest && !isSeller && <p>Your request to be a seller has been submitted and awaits approval.</p>}
+          {isSeller && sellerRequest && <button className="manage-button">Manage</button>}
           <button onClick={() => setEditing(true)} className="edit-button">Edit Profile</button>
         </div>
       )}
