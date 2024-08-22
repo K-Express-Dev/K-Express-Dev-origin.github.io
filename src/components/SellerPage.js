@@ -123,7 +123,7 @@ const SellerPage = ({ addToCart }) => {
         <h2>Popular dishes</h2>
         <div className="meal-types">
           <button>Popular</button>
-          <button>Eco Packaging</button>
+          <button>Packaged</button>
           <button>Mains</button>
           <button>Sides</button>
         </div>
